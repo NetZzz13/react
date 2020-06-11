@@ -1,0 +1,19 @@
+.dialogs {
+  display: grid;
+  grid-template-columns: 2fr 10fr;
+  padding: 20px;
+  .dialogsItems {
+    .dialog {
+      color: white;
+    }
+
+    .active {
+      color: hotpink;
+    }
+  }
+  .messages {
+    .message {
+      color: white;
+    }
+  }
+}
