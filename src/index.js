@@ -1,36 +1,34 @@
+import * as serviceWorker from "./serviceWorker";
+import state, { subscribe } from "./redux/state";
 import React from "react";
 import ReactDOM from "react-dom";
 import "./index.css";
 import App from "./App";
-import * as serviceWorker from "./serviceWorker";
+import { BrowserRouter } from "react-router-dom";
+import {
+  addPost,
+  updateNewPostText,
+  addPostMessage,
+  updateNewPostMessageText,
+} from "./redux/state";
 
-let postsData = [
-  { id: 1, message: "Hi, men", likeCount: 10 },
-  { id: 2, message: "Congratulations!", likeCount: 3 },
-];
+let rerenderEntireTree = () => {
+  ReactDOM.render(
+    <BrowserRouter>
+      <App
+        state={state}
+        addPost={addPost}
+        updateNewPostText={updateNewPostText}
+        addPostMessage={addPostMessage}
+        updateNewPostMessageText={updateNewPostMessageText}
+      />
+    </BrowserRouter>,
+    document.getElementById("root")
+  );
+};
 
-let dialogsData = [
-  { id: 1, name: "Alisa" },
-  { id: 2, name: "Sweta" },
-  { id: 3, name: "Pawel" },
-  { id: 4, name: "Zhenya" },
-];
-
-let messagesData = [
-  { id: 1, message: "Hi!" },
-  { id: 2, message: "Hey!" },
-  { id: 3, message: "Hola!" },
-  { id: 4, message: "How are you?" },
-];
-
-ReactDOM.render(
-  <App
-    postsData={postsData}
-    dialogsData={dialogsData}
-    messagesData={messagesData}
-  />,
-  document.getElementById("root")
-);
+rerenderEntireTree();
+subscribe(rerenderEntireTree)
 
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.

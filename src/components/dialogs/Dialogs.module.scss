@@ -5,6 +5,16 @@
   .dialogsItems {
     .dialog {
       color: white;
+      img{
+        object-fit: cover;
+        width: 30px;
+        height: 30px;
+        border-radius: 15px;
+      }
+      a{
+        color: black;
+        text-decoration: none;
+      }
     }
 
     .active {
@@ -17,3 +27,5 @@
     }
   }
 }
+
+

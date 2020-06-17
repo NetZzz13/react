@@ -19,3 +19,32 @@
 .active {
   color: green;
 }
+
+.friendsBlock {
+  margin-top: 40px;
+}
+
+.friendsTitle {
+  font-size: 30px;
+  text-align: center;
+  margin-bottom: 10px;
+}
+
+.friendsName {
+  font-size: 12px;
+}
+
+.friends {
+  display: flex;
+  img {
+    object-fit: cover;
+    width: 30px;
+    height: 30px;
+    border-radius: 15px;
+  }
+}
+
+.friend {
+  margin: 0 5px;
+  text-align: center;
+}
