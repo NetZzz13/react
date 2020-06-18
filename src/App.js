@@ -20,7 +20,7 @@ const App = (props) => {
             <Dialogs
               dialogsData={props.state.dialogsPage.dialogsData}
               messagesData={props.state.dialogsPage.messagesData}
-              newPostMessageText={props.state.dialogsPage.newPostMessageText}
+              newMessageText={props.state.dialogsPage.newMessageText}
               dispatch={props.dispatch}
             />
           )}
