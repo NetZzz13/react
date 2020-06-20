@@ -2,23 +2,23 @@ import React from "react";
 import s from "./Dialogs.module.scss";
 import Dialog from "./dialog/Dialog";
 import Message from "./message/Message";
-import { sendMessageCreator, updateNewMessageCreator } from "../../redux/dialogsReducer";
 
 const Dialogs = (props) => {
-  let dialogElements = props.dialogsData.map((d) => (
+
+  let dialogElements = props.dialogsPage.dialogsData.map((d) => (
     <Dialog id={d.id} name={d.name} avatar={d.avatar} />
   ));
-  let messageElements = props.messagesData.map((m) => (
+  let messageElements = props.dialogsPage.messagesData.map((m) => (
     <Message message={m.message} />
   ));
 
   let onSendMessageClick = () => {
-    props.dispatch(sendMessageCreator());
+    props.sendMessage();
   };
 
   let onMessageChange = (e) => {
-    let text = e.target.value;
-    props.dispatch(updateNewMessageCreator(text));
+    let body = e.target.value;
+    props.updateMessage(body);
   };
 
   return (
@@ -27,7 +27,7 @@ const Dialogs = (props) => {
       <div>
         <div className={s.messages}> {messageElements}</div>
         <textarea
-          value={props.newMessageText}
+          value={props.dialogsPage.newMessageText}
           onChange={onMessageChange}
           /* placeholder="Enter your message" */
         ></textarea>
