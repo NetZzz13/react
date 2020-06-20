@@ -10,19 +10,11 @@ const App = (props) => {
   return (
     <div className="app-wrapper">
       <Header />
-      <Navbar friendsData={props.store.getState().sideBar.friendsData} />
+      {<Navbar friendsData={props.store.getState().sideBar.friendsData} />}
 
       <div className="app-wrapper-content">
-        <Route
-          exact
-          path="/dialogs"
-          render={() => <DialogsContainer store={props.store} />}
-        />
-        <Route
-          exact
-          path="/profile"
-          render={() => <Profile store={props.store} />}
-        />
+        <Route exact path="/dialogs" render={() => <DialogsContainer />} />
+        <Route exact path="/profile" render={() => <Profile />} />
       </div>
     </div>
   );
