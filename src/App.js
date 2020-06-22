@@ -9,7 +9,7 @@ import UsersContainer from "./components/users/UsersContainer";
 
 const App = (props) => {
   return (
-    <div className="app-wrapper">
+    <div className="app-wrapper"> 
       <Header />
       {<Navbar friendsData={props.store.getState().sideBar.friendsData} />}
 
