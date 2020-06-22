@@ -29,10 +29,10 @@ const Navbar = (props) => {
         <div className={s.friendsTitle}>Friends</div>
           <div className={s.friends}>
             {props.friendsData.map((el) => {
-              return (
-                <div className={s.friend}>
+              return ( 
+                <div className={s.friend} key = {el.id} >
                   <img src={`${el.avatar}`} />
-                  <div className={s.friendsName}>{el.name}</div>
+                  <div className={s.friendsName} >{el.name}</div>
                 </div>
               );
             })}
