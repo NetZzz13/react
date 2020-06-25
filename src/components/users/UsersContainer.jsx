@@ -11,6 +11,7 @@ import {
 import Users from "./Users";
 import * as axios from "axios";
 import Preloader from "../common/Preloader";
+import { getUsers, getUsers2 } from "../../api/api";
 
 export class UsersAPIContainer extends React.Component {
   constructor(props) {
@@ -19,31 +20,22 @@ export class UsersAPIContainer extends React.Component {
 
   componentDidMount() {
     this.props.toogleIsFetching(true);
-    axios
-      .get(
-        `https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}&count=${this.props.pageSize}`, {
-          withCredentials: true
-        }
-      )
-      .then((response) => {
+    
+      getUsers(this.props.currentPage, this.props.pageSize).then((response) => {
+        
         this.props.toogleIsFetching(false);
-        this.props.setUsers(response.data.items);
-        this.props.setUsersTotalCount(response.data.totalCount);
+        this.props.setUsers(response.items);
+        this.props.setUsersTotalCount(response.totalCount);
       });
   }
 
   onChangePage = (page) => {
     this.props.setCurrentPage(page);
     this.props.toogleIsFetching(true);
-    axios
-      .get(
-        `https://social-network.samuraijs.com/api/1.0/users?page=${page}&count=${this.props.pageSize}`,{
-          withCredentials: true
-        }
-      )
-      .then((response) => {
+    
+    getUsers(page, this.props.pageSize).then((response) => {
         this.props.toogleIsFetching(false);
-        this.props.setUsers(response.data.items);
+        this.props.setUsers(response.items);
       });
   };
 

@@ -17,7 +17,7 @@ const profileReducer = (state = initialState, action) => {
   switch (action.type) {
     
     case ADD_POST: {
-      debugger;
+   
       let newPost = {
         id: 3,
         message: state.newPostText,
@@ -30,9 +30,18 @@ const profileReducer = (state = initialState, action) => {
       };
       return stateCopy;
 
+      /* let newPost = {
+        id: 3,
+        message: state.newPostText,
+        likeCount: 0,
+      };
+      let stateCopy = { ...state };
+      stateCopy.postsData = [...state.postsData];
+      stateCopy.postsData.push(newPost);
+      stateCopy.newPostText = "";
+      return stateCopy; */
     }
     case UPDATE_NEW_POST_TEXT: {
-      debugger;
       return {...state, newPostText: action.newPostText}
     }
 
