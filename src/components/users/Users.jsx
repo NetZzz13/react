@@ -1,9 +1,10 @@
 import React from "react";
 import s from "./Users.module.scss";
 import userPhoto from "../../assets/images/profile.png";
+import { NavLink } from "react-router-dom";
 
 const Users = (props) => {
-  let pagesCount = (props.totalUsersCount / 50) / props.pageSize;
+  let pagesCount = props.totalUsersCount / 30 / props.pageSize;
 
   let pages = [];
   for (let i = 1; i <= pagesCount; i++) {
@@ -30,7 +31,11 @@ const Users = (props) => {
         <div className={s.users}>
           <div className={s.user}>
             <div className={s.avaBlock}>
-              <img src={u.photos.large != null ? u.photos.large : userPhoto} />
+              <NavLink to={"/profile/" + u.id}>
+                <img
+                  src={u.photos.large != null ? u.photos.large : userPhoto}
+                />
+              </NavLink>
               {u.followed ? (
                 <button
                   onClick={() => {

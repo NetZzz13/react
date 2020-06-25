@@ -13,7 +13,8 @@ const initialState = {
   pageSize: 5,
   totalUsersCount: 0,
   currentPage: 1,
-  isFetching: false
+  isFetching: false,
+  
 };
 
 export const usersReducer = (state = initialState, action) => {
@@ -59,6 +60,8 @@ export const usersReducer = (state = initialState, action) => {
     case TOOGLE_IS_FETCHING: {
       return {...state, isFetching: action.isFetching}
     }
+
+    
 
     default:
       return state;
@@ -106,6 +109,7 @@ export const toogleIsFetching = (isFetching) => {
     isFetching,
   };
 };
+
 
 
 export default usersReducer;

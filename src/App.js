@@ -1,21 +1,21 @@
 import React from "react";
 import "./App.css";
-import Header from "./components/header/Header";
 import Navbar from "./components/navbar/Navbar";
-import Profile from "./components/profile/Profile";
 import { Route } from "react-router-dom";
 import DialogsContainer from "./components/dialogs/DialogsContainer";
 import UsersContainer from "./components/users/UsersContainer";
+import ProfileContainer from "./components/profile/ProfileContainer";
+import HeaderContainer from "./components/header/HeaderContainer";
 
 const App = (props) => {
   return (
     <div className="app-wrapper"> 
-      <Header />
+      <HeaderContainer />
       {<Navbar friendsData={props.store.getState().sideBar.friendsData} />}
 
       <div className="app-wrapper-content">
         <Route exact path="/dialogs" render={() => <DialogsContainer />} />
-        <Route exact path="/profile" render={() => <Profile />} />
+        <Route path="/profile/:userId?" render={() => <ProfileContainer />} />
         <Route exact path="/users" render={() => <UsersContainer />} />
       </div>
     </div>
