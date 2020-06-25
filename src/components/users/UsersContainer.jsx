@@ -7,11 +7,11 @@ import {
   setUsersTotalCount,
   setCurrentPage,
   toogleIsFetching,
+  toogleFollowingProgress,
 } from "../../redux/usersReducer";
 import Users from "./Users";
-import * as axios from "axios";
 import Preloader from "../common/Preloader";
-import { getUsers, getUsers2 } from "../../api/api";
+import { getUsers } from "../../api/api";
 
 export class UsersAPIContainer extends React.Component {
   constructor(props) {
@@ -20,23 +20,22 @@ export class UsersAPIContainer extends React.Component {
 
   componentDidMount() {
     this.props.toogleIsFetching(true);
-    
-      getUsers(this.props.currentPage, this.props.pageSize).then((response) => {
-        
-        this.props.toogleIsFetching(false);
-        this.props.setUsers(response.items);
-        this.props.setUsersTotalCount(response.totalCount);
-      });
+
+    getUsers(this.props.currentPage, this.props.pageSize).then((response) => {
+      this.props.toogleIsFetching(false);
+      this.props.setUsers(response.items);
+      this.props.setUsersTotalCount(response.totalCount);
+    });
   }
 
   onChangePage = (page) => {
     this.props.setCurrentPage(page);
     this.props.toogleIsFetching(true);
-    
+
     getUsers(page, this.props.pageSize).then((response) => {
-        this.props.toogleIsFetching(false);
-        this.props.setUsers(response.items);
-      });
+      this.props.toogleIsFetching(false);
+      this.props.setUsers(response.items);
+    });
   };
 
   render() {
@@ -61,6 +60,8 @@ export class UsersAPIContainer extends React.Component {
           onChangePage={this.onChangePage}
           follow={this.props.follow}
           unfollow={this.props.unfollow}
+          toogleFollowingProgress={this.props.toogleFollowingProgress}
+          followingProgress={this.props.followingProgress}
         />
       </>
     );
@@ -74,6 +75,7 @@ let mapStateToProps = (state) => {
     totalUsersCount: state.usersPage.totalUsersCount,
     currentPage: state.usersPage.currentPage,
     isFetching: state.usersPage.isFetching,
+    followingProgress: state.usersPage.followingProgress,
   };
 };
 
@@ -84,6 +86,7 @@ const UsersContainer = connect(mapStateToProps, {
   setUsersTotalCount,
   setCurrentPage,
   toogleIsFetching,
+  toogleFollowingProgress,
 })(UsersAPIContainer);
 
 export default UsersContainer;

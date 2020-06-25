@@ -38,8 +38,11 @@ const Users = (props) => {
                 />
               </NavLink>
               {u.followed ? (
-                <button
+                <button disabled={props.followingProgress.some(id => id === u.id)}
+                
                   onClick={() => {
+                    
+                    props.toogleFollowingProgress(true, u.id);
                     axios
                       .delete(
                         `https://social-network.samuraijs.com/api/1.0/follow/` +
@@ -48,21 +51,24 @@ const Users = (props) => {
                           withCredentials: true,
                           headers: {
                             "API-KEY": "bcdb940a-a9b6-414a-8716-5428aa1367ea",
-                          }
+                          },
                         }
                       )
                       .then((response) => {
                         if (response.data.resultCode === 0) {
                           props.unfollow(u.id);
                         }
+                        props.toogleFollowingProgress(false, u.id);
                       });
                   }}
                 >
                   Unfollow
                 </button>
               ) : (
-                <button
+                <button disabled={props.followingProgress.some(id => id === u.id)}
                   onClick={() => {
+                   
+                    props.toogleFollowingProgress(true, u.id);
                     axios
                       .post(
                         `https://social-network.samuraijs.com/api/1.0/follow/` +
@@ -72,13 +78,14 @@ const Users = (props) => {
                           withCredentials: true,
                           headers: {
                             "API-KEY": "bcdb940a-a9b6-414a-8716-5428aa1367ea",
-                          }
+                          },
                         }
                       )
                       .then((response) => {
                         if (response.data.resultCode === 0) {
                           props.follow(u.id);
                         }
+                        props.toogleFollowingProgress(false, u.id);
                       });
                   }}
                 >
