@@ -10,6 +10,7 @@ import {
 } from "../../redux/usersReducer";
 import Users from "./Users";
 import Preloader from "../common/Preloader";
+import { withAuthRedirect } from "../hoc/WithAuthRedirect";
 
 export class UsersContainer extends React.Component {
   constructor(props) {
@@ -58,6 +59,8 @@ export class UsersContainer extends React.Component {
   }
 }
 
+let AuthRedirectComponent = withAuthRedirect(UsersContainer)
+
 let mapStateToProps = (state) => {
   return {
     users: state.usersPage.users,
@@ -76,4 +79,4 @@ export default connect(mapStateToProps, {
   getUsersThunkCreator,
   followThunkCreator,
   unfollowThunkCreator,
-})(UsersContainer);
+})(AuthRedirectComponent);
