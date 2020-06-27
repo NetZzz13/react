@@ -1,4 +1,4 @@
-import { getUsers, follow, unfollow } from "../api/api";
+import { getUsers, follow, unfollow, usersAPI } from "../api/api";
 
 const FOLLOW = "FOLLOW";
 const UNFOLLOW = "UNFOLLOW";
@@ -125,13 +125,11 @@ export const toogleFollowingProgress = (isFetching, userId) => {
   };
 };
 
-export default usersReducer;
-
 export const getUsersThunkCreator = (currentPage, pageSize) => {
   return (dispatch) => {
     dispatch(toogleIsFetching(true));
 
-    getUsers(currentPage, pageSize).then((response) => {
+    usersAPI.getUsers(currentPage, pageSize).then((response) => {
       dispatch(setCurrentPage(currentPage));
       dispatch(toogleIsFetching(false));
       dispatch(setUsers(response.items));
@@ -143,7 +141,7 @@ export const getUsersThunkCreator = (currentPage, pageSize) => {
 export const followThunkCreator = (userId) => {
   return (dispatch) => {
     dispatch(toogleFollowingProgress(true, userId));
-    follow(userId).then((response) => {
+    usersAPI.follow(userId).then((response) => {
       if (response.data.resultCode === 0) {
         dispatch(followSuccess(userId));
       }
@@ -152,11 +150,10 @@ export const followThunkCreator = (userId) => {
   };
 };
 
-
 export const unfollowThunkCreator = (userId) => {
   return (dispatch) => {
     dispatch(toogleFollowingProgress(true, userId));
-    unfollow(userId).then((response) => {
+    usersAPI.unfollow(userId).then((response) => {
       if (response.data.resultCode === 0) {
         dispatch(unfollowSuccess(userId));
       }
@@ -164,3 +161,5 @@ export const unfollowThunkCreator = (userId) => {
     });
   };
 };
+
+export default usersReducer;
