@@ -1,41 +1,30 @@
 import React from "react";
 import { connect } from "react-redux";
 import {
-  follow,
-  unfollow,
-  setUsers,
-  setUsersTotalCount,
+  followSuccess,
+  unfollowSuccess,
   setCurrentPage,
-  toogleIsFetching,
-  toogleFollowingProgress,
+  getUsersThunkCreator,
+  followThunkCreator,
+  unfollowThunkCreator,
 } from "../../redux/usersReducer";
 import Users from "./Users";
 import Preloader from "../common/Preloader";
-import { getUsers } from "../../api/api";
 
-export class UsersAPIContainer extends React.Component {
+export class UsersContainer extends React.Component {
   constructor(props) {
     super(props);
   }
 
   componentDidMount() {
-    this.props.toogleIsFetching(true);
-
-    getUsers(this.props.currentPage, this.props.pageSize).then((response) => {
-      this.props.toogleIsFetching(false);
-      this.props.setUsers(response.items);
-      this.props.setUsersTotalCount(response.totalCount);
-    });
+    this.props.getUsersThunkCreator(
+      this.props.currentPage,
+      this.props.pageSize
+    );
   }
 
   onChangePage = (page) => {
-    this.props.setCurrentPage(page);
-    this.props.toogleIsFetching(true);
-
-    getUsers(page, this.props.pageSize).then((response) => {
-      this.props.toogleIsFetching(false);
-      this.props.setUsers(response.items);
-    });
+    this.props.getUsersThunkCreator(page, this.props.pageSize);
   };
 
   render() {
@@ -50,19 +39,20 @@ export class UsersAPIContainer extends React.Component {
 
     return (
       <>
-        {this.props.isFetching ? <Preloader /> : null}
-
-        <Users
-          totalUsersCount={this.props.totalUsersCount}
-          pageSize={this.props.pageSize}
-          currentPage={this.props.currentPage}
-          users={this.props.users}
-          onChangePage={this.onChangePage}
-          follow={this.props.follow}
-          unfollow={this.props.unfollow}
-          toogleFollowingProgress={this.props.toogleFollowingProgress}
-          followingProgress={this.props.followingProgress}
-        />
+        {this.props.isFetching ? (
+          <Preloader />
+        ) : (
+          <Users
+            totalUsersCount={this.props.totalUsersCount}
+            pageSize={this.props.pageSize}
+            currentPage={this.props.currentPage}
+            users={this.props.users}
+            onChangePage={this.onChangePage}
+            followingProgress={this.props.followingProgress}
+            followThunkCreator={this.props.followThunkCreator}
+            unfollowThunkCreator={this.props.unfollowThunkCreator}
+          />
+        )}
       </>
     );
   }
@@ -79,14 +69,11 @@ let mapStateToProps = (state) => {
   };
 };
 
-const UsersContainer = connect(mapStateToProps, {
-  follow,
-  unfollow,
-  setUsers,
-  setUsersTotalCount,
+export default connect(mapStateToProps, {
+  followSuccess,
+  unfollowSuccess,
   setCurrentPage,
-  toogleIsFetching,
-  toogleFollowingProgress,
-})(UsersAPIContainer);
-
-export default UsersContainer;
+  getUsersThunkCreator,
+  followThunkCreator,
+  unfollowThunkCreator,
+})(UsersContainer);

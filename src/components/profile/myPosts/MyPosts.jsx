@@ -2,6 +2,7 @@ import React from "react";
 import s from "./MyPosts.module.scss";
 import Post from "./post/Post";
 
+
 const MyPosts = (props) => {
   let postElements = props.postsData.map((p) => (
     <Post message={p.message} likeCount={p.likeCount} key={p.id} />
@@ -15,7 +16,7 @@ const MyPosts = (props) => {
 
   let onPostChange = () => {
     let text = newPostElement.current.value;
-    props.updateNewPostText(text)
+    props.updateNewPostText(text);
   };
 
   return (

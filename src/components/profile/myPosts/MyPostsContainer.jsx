@@ -6,12 +6,10 @@ import {
 import MyPosts from "./MyPosts";
 import { connect } from "react-redux";
 
-
-
 let mapStateToProps = (state) => {
   return {
     postsData: state.profilePage.postsData,
-    newPostText: state.profilePage.newPostText
+    newPostText: state.profilePage.newPostText,
   };
 };
 
@@ -26,6 +24,6 @@ let mapDispatchToProps = (dispatch) => {
   };
 };
 
-const DialogsContainer = connect(mapStateToProps, mapDispatchToProps)(MyPosts);
+const MyPostsContainer = connect(mapStateToProps, mapDispatchToProps)(MyPosts);
 
-export default DialogsContainer;
+export default MyPostsContainer;

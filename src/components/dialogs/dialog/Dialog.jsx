@@ -6,15 +6,11 @@ const Dialog = (props) => {
   return (
     <div className={`${s.dialog} ${s.active}`}>
       <NavLink to={`/dialogs/${props.id}`}>
-        
         <img src={`${props.avatar}`} />
         {props.name}
-        </NavLink>
-        
-
+      </NavLink>
     </div>
   );
 };
-
 
 export default Dialog;

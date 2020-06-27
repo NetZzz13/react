@@ -1,16 +1,42 @@
 .header {
   grid-area: h;
-  background-color: brown;
+  background-color:#20232a;
 }
 
-.header img {
-  width: 70px;
-}
-
-.loginBlock {
-  float: right;
-  a {
+.headerBlock {
+  display: flex;
+  justify-content: space-between;
+  height: 100%;
+  a{
+    display: flex;
+    align-items: center;
+    text-align: center;
     text-decoration: none;
     color: white;
+    img {
+      height: 80%;
+      padding: 0 10px 0 20px;
+    }
+    span{
+      text-align: center;
+      font-size: 30px;
+      font-weight: bold;
+    }
+  }
+  
+}
+
+
+
+.loginBlock {
+  padding: 10px;
+  text-align: center;
+  align-items: center;
+  a {
+    height: 100%;
+    text-decoration: none;
+    color: white;
+   
+      font-weight: bold;
   }
 }
