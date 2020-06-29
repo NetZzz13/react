@@ -1,8 +1,9 @@
-import { getProfile, profileAPI } from "../api/api";
+import { profileAPI } from "../api/api";
 
 const ADD_POST = "ADD_POST";
 const UPDATE_NEW_POST_TEXT = "UPDATE_NEW_POST_TEXT";
 const SET_USERS_PROFILE = "SET_USERS_PROFILE";
+const SET_STATUS = "SET_STATUS";
 
 const initialState = {
   postsData: [
@@ -11,6 +12,7 @@ const initialState = {
   ],
   newPostText: "it-kamasutra.com",
   profile: null,
+  status: "",
 };
 
 const profileReducer = (state = initialState, action) => {
@@ -33,6 +35,10 @@ const profileReducer = (state = initialState, action) => {
 
     case SET_USERS_PROFILE: {
       return { ...state, profile: action.profile };
+    }
+
+    case SET_STATUS: {
+      return { ...state, status: action.status };
     }
 
     default:
@@ -60,10 +66,36 @@ export const setUsersProfile = (profile) => {
   };
 };
 
+export const setUserStatus = (status) => {
+  return {
+    type: SET_STATUS,
+    status,
+  };
+};
+
 export const getProfileThunkCreator = (userId) => {
   return (dispatch) => {
     profileAPI.getProfile(userId).then((data) => {
       dispatch(setUsersProfile(data));
+    });
+  };
+};
+
+export const getStatusThunkCreator = (userId) => {
+  return (dispatch) => {
+    profileAPI.getStatus(userId).then((response) => {
+      dispatch(setUserStatus(response));
+    });
+  };
+};
+
+export const updateStatusThunkCreator = (status) => {
+  return (dispatch) => {
+    profileAPI.updateStatus(status).then((response) => {
+
+      if (response.data.resultCode === 0) {
+        dispatch(setUserStatus(status));
+      }
     });
   };
 };
