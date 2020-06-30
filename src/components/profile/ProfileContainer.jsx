@@ -29,15 +29,6 @@ let mapStateToProps = (state) => {
   return { profile: state.profilePage.profile, status: state.profilePage.status};
 };
 
-/* let AuthRedirectComponent = withAuthRedirect(ProfileContainer);
-
-let withRouterContainer = withRouter(AuthRedirectComponent);
-
-
-export default connect(mapStateToProps, {
-  getProfileThunkCreator,
-})(withRouterContainer);
- */
 
 export default compose(
   connect(mapStateToProps, {

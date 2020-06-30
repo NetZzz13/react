@@ -10,7 +10,6 @@ const initialState = {
     { id: 1, message: "Hi, men", likeCount: 10 },
     { id: 2, message: "Congratulations!", likeCount: 3 },
   ],
-  newPostText: "it-kamasutra.com",
   profile: null,
   status: "",
 };
@@ -18,19 +17,17 @@ const initialState = {
 const profileReducer = (state = initialState, action) => {
   switch (action.type) {
     case ADD_POST: {
-      let newPost = {
-        id: 3,
-        message: state.newPostText,
-        likeCount: 0,
-      };
       return {
         ...state,
-        newPostText: "",
-        postsData: [...state.postsData, newPost],
+        postsData: [
+          ...state.postsData,
+          {
+            id: 3,
+            message: action.post,
+            likeCount: 0,
+          },
+        ],
       };
-    }
-    case UPDATE_NEW_POST_TEXT: {
-      return { ...state, newPostText: action.newPostText };
     }
 
     case SET_USERS_PROFILE: {
@@ -46,9 +43,10 @@ const profileReducer = (state = initialState, action) => {
   }
 };
 
-export const addPostActionCreator = () => {
+export const addPostActionCreator = (post) => {
   return {
     type: ADD_POST,
+    post,
   };
 };
 
@@ -92,7 +90,6 @@ export const getStatusThunkCreator = (userId) => {
 export const updateStatusThunkCreator = (status) => {
   return (dispatch) => {
     profileAPI.updateStatus(status).then((response) => {
-
       if (response.data.resultCode === 0) {
         dispatch(setUserStatus(status));
       }
