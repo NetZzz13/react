@@ -3,7 +3,10 @@ import s from "./ProfileInfo.module.scss";
 import Preloader from "../../common/Preloader";
 import emptyAvatar from "../../../assets/images/profile.png";
 import ProfileStatus from "../profileStatus/ProfileStatus";
+
+
 const ProfileInfo = (props) => {
+  
   if (!props.profile) {
     return <Preloader />;
   }

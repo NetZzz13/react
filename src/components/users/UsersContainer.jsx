@@ -82,6 +82,6 @@ export default compose(
     getUsersThunkCreator,
     followThunkCreator,
     unfollowThunkCreator,
-  }),
-  withAuthRedirect)
+  })/* ,
+  withAuthRedirect */)
 (UsersContainer)

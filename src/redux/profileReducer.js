@@ -1,7 +1,6 @@
 import { profileAPI } from "../api/api";
 
 const ADD_POST = "ADD_POST";
-const UPDATE_NEW_POST_TEXT = "UPDATE_NEW_POST_TEXT";
 const SET_USERS_PROFILE = "SET_USERS_PROFILE";
 const SET_STATUS = "SET_STATUS";
 
@@ -50,13 +49,6 @@ export const addPostActionCreator = (post) => {
   };
 };
 
-export const updateNewPostTextActionCreator = (text) => {
-  return {
-    type: UPDATE_NEW_POST_TEXT,
-    newPostText: text,
-  };
-};
-
 export const setUsersProfile = (profile) => {
   return {
     type: SET_USERS_PROFILE,
@@ -73,8 +65,8 @@ export const setUserStatus = (status) => {
 
 export const getProfileThunkCreator = (userId) => {
   return (dispatch) => {
-    profileAPI.getProfile(userId).then((data) => {
-      dispatch(setUsersProfile(data));
+    profileAPI.getProfile(userId).then((response) => {
+      dispatch(setUsersProfile(response.data));
     });
   };
 };
@@ -82,7 +74,8 @@ export const getProfileThunkCreator = (userId) => {
 export const getStatusThunkCreator = (userId) => {
   return (dispatch) => {
     profileAPI.getStatus(userId).then((response) => {
-      dispatch(setUserStatus(response));
+     
+      dispatch(setUserStatus(response.data));
     });
   };
 };
