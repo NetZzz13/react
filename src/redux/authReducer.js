@@ -27,7 +27,7 @@ export const setAuthUserData = (userId, email, login, isAuth) => {
   };
 };
 
-export const getAuthUserData = () => {
+/* export const getAuthUserData = () => {
   return (dispatch) => {
     return authAPI.authMe().then((response) => {
       if (response.data.resultCode === 0) {
@@ -42,31 +42,46 @@ export const getAuthUserData = () => {
       }
     });
   };
+}; */
+
+//refactor
+export const getAuthUserData = () => {
+  return async (dispatch) => {
+    let response = await authAPI.authMe();
+    if (response.data.resultCode === 0) {
+      dispatch(
+        setAuthUserData(
+          response.data.data.id,
+          response.data.data.email,
+          response.data.data.login,
+          true
+        )
+      );
+    }
+  };
 };
 
 export const loginThunkCreator = (email, password, rememderMe) => {
-  return (dispatch) => {
-    authAPI.login(email, password, rememderMe).then((response) => {
-      if (response.data.resultCode === 0) {
-        dispatch(getAuthUserData());
-      } else {
-        let message =
-          response.data.messages.length > 0
-            ? response.data.messages[0]
-            : "Some error";
-        dispatch(stopSubmit("login", { _error: message }));
-      }
-    });
+  return async (dispatch) => {
+    let response = await authAPI.login(email, password, rememderMe);
+    if (response.data.resultCode === 0) {
+      dispatch(getAuthUserData());
+    } else {
+      let message =
+        response.data.messages.length > 0
+          ? response.data.messages[0]
+          : "Some error";
+      dispatch(stopSubmit("login", { _error: message }));
+    }
   };
 };
 
 export const logoutThunkCreator = () => {
-  return (dispatch) => {
-    authAPI.logout().then((response) => {
-      if (response.data.resultCode === 0) {
-        dispatch(setAuthUserData(null, null, null, false));
-      }
-    });
+  return async (dispatch) => {
+    let response = await authAPI.logout();
+    if (response.data.resultCode === 0) {
+      dispatch(setAuthUserData(null, null, null, false));
+    }
   };
 };
 

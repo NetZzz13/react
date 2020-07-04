@@ -58,12 +58,14 @@ export const LoginForm = (props) => {
           validate={[required, maxLength16, minLength8]}
         />
       </div>
-      <div>
-        <Field type={"checkbox"} name={"rememberMe"} component={Input} />{" "}
-        Remember Me
+
+      <div className={s.rememberMe}>
+        <Field type={"checkbox"} name={"rememberMe"} component={Input} />
+        <label>Remember me</label>
       </div>
+
       {props.error && <div className={s.formSummaryError}>{props.error}</div>}
-      <button>Push</button>
+      <button>Sign in</button>
     </form>
   );
 };
