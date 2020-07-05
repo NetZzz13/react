@@ -13,13 +13,11 @@ import Preloader from "../common/Preloader";
 import { withAuthRedirect } from "../hoc/WithAuthRedirect";
 import { compose } from "redux";
 import {
-  getUsers,
   getPageSize,
   getTotalUsersCount,
   getCurrentPage,
   getIsFetching,
   getFollowingProgress,
-  getUsersSuper,
   getUsersSuperSelector,
 } from "../../redux/userSelectors";
 
@@ -51,9 +49,9 @@ export class UsersContainer extends React.Component {
 
     return (
       <>
-        {this.props.isFetching ? (
-          <Preloader />
-        ) : (
+      {this.props.isFetching ? <Preloader/> : null}
+
+       
           <Users
             totalUsersCount={this.props.totalUsersCount}
             pageSize={this.props.pageSize}
@@ -64,7 +62,7 @@ export class UsersContainer extends React.Component {
             followThunkCreator={this.props.followThunkCreator}
             unfollowThunkCreator={this.props.unfollowThunkCreator}
           />
-        )}
+        
       </>
     );
   }

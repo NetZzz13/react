@@ -13,6 +13,7 @@ const Users = (props) => {
         onChangePage={props.onChangePage}
         totalUsersCount={props.totalUsersCount}
         pageSize={props.pageSize}
+        portionSize = {10}
       />
       <div className={s.users}>
         {props.users.map((u) => (
