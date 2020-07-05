@@ -33,8 +33,8 @@ test("after deleting length of messages should be decrement", () => {
   });
 
 
-  test("after deleting length shouldn't be decrement if it is incorrect", () => {
+ /*  test("after deleting length shouldn't be decrement if it is incorrect", () => {
     let action = deletePostActionCreator(1000);
     let newState = profileReducer(state, action);
     expect(newState.postsData.length).toBe(1);
-  });
+  }); */
