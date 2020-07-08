@@ -1,9 +1,11 @@
 import { profileAPI } from "../api/api";
+import { stopSubmit } from "redux-form";
 
 const ADD_POST = "ADD_POST";
 const DELETE_POST = "DELETE_POST";
 const SET_USERS_PROFILE = "SET_USERS_PROFILE";
 const SET_STATUS = "SET_STATUS";
+const SAVE_PHOTO_SUCCESS = "SAVE_PHOTO_SUCCESS";
 
 const initialState = {
   postsData: [
@@ -30,9 +32,11 @@ const profileReducer = (state = initialState, action) => {
       };
     }
 
-
     case DELETE_POST: {
-      return { ...state, postsData: state.postsData.filter(p => p.id != action.postId) };
+      return {
+        ...state,
+        postsData: state.postsData.filter((p) => p.id != action.postId),
+      };
     }
 
     case SET_USERS_PROFILE: {
@@ -43,7 +47,9 @@ const profileReducer = (state = initialState, action) => {
       return { ...state, status: action.status };
     }
 
-    
+    case SAVE_PHOTO_SUCCESS: {
+      return { ...state, profile: { ...state.profile, photos: action.photos } };
+    }
 
     default:
       return state;
@@ -64,8 +70,6 @@ export const deletePostActionCreator = (postId) => {
   };
 };
 
-
-
 export const setUsersProfile = (profile) => {
   return {
     type: SET_USERS_PROFILE,
@@ -80,6 +84,13 @@ export const setUserStatus = (status) => {
   };
 };
 
+export const savePhotoSuccess = (photos) => {
+  return {
+    type: SAVE_PHOTO_SUCCESS,
+    photos,
+  };
+};
+
 export const getProfileThunkCreator = (userId) => {
   return (dispatch) => {
     profileAPI.getProfile(userId).then((response) => {
@@ -91,7 +102,6 @@ export const getProfileThunkCreator = (userId) => {
 export const getStatusThunkCreator = (userId) => {
   return (dispatch) => {
     profileAPI.getStatus(userId).then((response) => {
-     
       dispatch(setUserStatus(response.data));
     });
   };
@@ -107,4 +117,29 @@ export const updateStatusThunkCreator = (status) => {
   };
 };
 
+export const savePhotoTC = (file) => {
+  return (dispatch) => {
+    profileAPI.savePhoto(file).then((response) => {
+      if (response.data.resultCode === 0) {
+        dispatch(savePhotoSuccess(response.data.data.photos));
+      }
+    });
+  };
+};
+
+export const saveProfileFormTC = (profile) => async (dispatch, getState) => {
+  const userId = getState().auth.userId;
+  const response = await profileAPI.saveProfile(profile);
+
+  if (response.data.resultCode === 0) {
+    //after click on Save button (after ) - show current user with new data
+    dispatch(getProfileThunkCreator(userId));
+  } else {
+    dispatch(
+      stopSubmit("profileEditForm", { _error: response.data.messages[0] })
+    );
+    //if there is mistake in form - show mistake
+    return Promise.reject(response.data.messages[0]);
+  }
+};
 export default profileReducer;

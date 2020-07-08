@@ -2,6 +2,16 @@
   padding: 10px;
   .profileAvatar {
     width: 200px;
+    border-radius: 20px;
   }
   
+}
+
+.nickname{
+  text-transform: uppercase;
+}
+
+.contacts{
+  display: block;
+  margin-left: 20px;
 }
