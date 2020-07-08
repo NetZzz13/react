@@ -16,7 +16,8 @@ const Login = (props) => {
     props.loginThunkCreator(
       formData.email,
       formData.password,
-      formData.rememberMe
+      formData.rememberMe,
+      formData.captcha
     );
     console.log(formData);
   };
@@ -28,7 +29,7 @@ const Login = (props) => {
   return (
     <div className={s.loginBlock}>
       <div>Login</div>
-      <LoginReduxForm onSubmit={onSubmit} />
+      <LoginReduxForm onSubmit={onSubmit} captchaUrl={props.captchaUrl} />
     </div>
   );
 };
@@ -64,6 +65,18 @@ export const LoginForm = (props) => {
         <label>Remember me</label>
       </div>
 
+      {props.captchaUrl ? (
+        <div>
+          <img src={props.captchaUrl} />
+          <Field
+            placeholder="Enter captcha symbols"
+            name={"captcha"}
+            component={Input}
+            validate={[required]}
+          />
+        </div>
+      ) : null}
+
       {props.error && <div className={s.formSummaryError}>{props.error}</div>}
       <button>Sign in</button>
     </form>
@@ -76,6 +89,7 @@ export const LoginReduxForm = reduxForm({
 
 const mapStateToProps = (state) => ({
   isAuth: state.auth.isAuth,
+  captchaUrl: state.auth.captchaUrl,
 });
 
 export default connect(mapStateToProps, { loginThunkCreator })(Login);
