@@ -1,7 +1,7 @@
 import React from "react";
 import "./App.css";
 import Navbar from "./components/navbar/Navbar";
-import { Route, withRouter } from "react-router-dom";
+import { Route, withRouter, Redirect } from "react-router-dom";
 import DialogsContainer from "./components/dialogs/DialogsContainer";
 import UsersContainer from "./components/users/UsersContainer";
 import ProfileContainer from "./components/profile/ProfileContainer";
@@ -20,8 +20,20 @@ class App extends React.Component {
     super(props);
   }
 
+  catchAllUnhandledErrors = (PromiseRejectionEvent) => {
+    alert("Some error occured");
+  };
+
   componentDidMount() {
     this.props.initializeApp();
+    window.addEventListener("unhandledrejection", this.catchAllUnhandledErrors);
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener(
+      "unhandledrejection",
+      this.catchAllUnhandledErrors
+    );
   }
 
   render() {
@@ -39,10 +51,12 @@ class App extends React.Component {
         }
 
         <div className="app-wrapper-content">
+          <Route exact path="/" render={() => <Redirect to="/profile" />} />
           <Route exact path="/dialogs" render={() => <DialogsContainer />} />
           <Route path="/profile/:userId?" render={() => <ProfileContainer />} />
           <Route exact path="/users" render={() => <UsersContainer />} />
           <Route exact path="/login" render={() => <Login />} />
+          <Route exact path="*" render={() => <div>404 not found</div>} />
         </div>
       </div>
     );
