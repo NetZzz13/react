@@ -1,13 +1,31 @@
-import React from "react";
+import React, { useState } from "react";
 import s from "./Post.module.scss";
+import userPhoto from "../../../../assets/images/profile.png";
+import like from "../../../../assets/images/like.png";
 
 const Post = (props) => {
+  let onLike = () => {
+    !props.isLike ? props.addLike(props.id) : props.deleteLike(props.id);
+  };
+
+  /* let [likeCount, setLike] = useState(props.likeCount);
+
+  let pushMe = () => {
+    setLike(likeCount + 1);
+  }; */
+
   return (
     <div className={s.item}>
-      <img src="https://images.unsplash.com/photo-1499996860823-5214fcc65f8f?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=702&q=80" />
+      <img
+        src={props.profile ? props.profile.photos.small : userPhoto}
+        alt="user's avatar from dialogs"
+      />
       {props.message}
-      <div>
-        <span>Like {props.likeCount}</span>
+      <div className={s.likeBlock}>
+        <span className={s.likeCount}>
+          {props.likeCount} {/* {likeCount} */}
+        </span>
+        <img src={like} className={s.like} alt="likeIcon" onClick={onLike} />
       </div>
     </div>
   );

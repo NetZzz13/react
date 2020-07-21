@@ -32,27 +32,34 @@ const initialState = {
     { id: 2, message: "Hey!" },
     { id: 3, message: "Hola!" },
     { id: 4, message: "How are you?" },
-  ]
+  ],
 };
 
 export const dialogsReducer = (state = initialState, action) => {
+  //debugger;
   switch (action.type) {
-    
     case SEND_MESSAGE: {
-      let body = action.newMessage
+      let body = action.newMessage;
       return {
         ...state,
-        messagesData: [...state.messagesData, {id: 6, message: body}],
+        messagesData: [
+          ...state.messagesData,
+          {
+            id: state.messagesData[state.messagesData.length - 1].id + 1,
+            message: body,
+          },
+        ],
       };
     }
-    
+
     default:
       return state;
   }
 };
 
-export const sendMessageCreator = (newMessage) => ({ type: SEND_MESSAGE, newMessage });
-
-
+export const sendMessageCreator = (newMessage) => ({
+  type: SEND_MESSAGE,
+  newMessage,
+});
 
 export default dialogsReducer;

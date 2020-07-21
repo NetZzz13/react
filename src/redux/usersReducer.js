@@ -1,4 +1,4 @@
-import { getUsers, follow, unfollow, usersAPI } from "../api/api";
+import { usersAPI } from "../api/api";
 
 const FOLLOW = "FOLLOW";
 const UNFOLLOW = "UNFOLLOW";
@@ -66,7 +66,7 @@ export const usersReducer = (state = initialState, action) => {
         ...state,
         followingProgress: action.isFetching
           ? [...state.followingProgress, action.userId]
-          : state.followingProgress.filter((id) => id != action.userId),
+          : state.followingProgress.filter((id) => id !== action.userId),
       };
     }
 

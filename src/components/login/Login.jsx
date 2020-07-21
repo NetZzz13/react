@@ -67,7 +67,7 @@ export const LoginForm = (props) => {
 
       {props.captchaUrl ? (
         <div>
-          <img src={props.captchaUrl} />
+          <img src={props.captchaUrl} alt="captcha" />
           <Field
             placeholder="Enter captcha symbols"
             name={"captcha"}

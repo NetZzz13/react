@@ -1,6 +1,7 @@
 import React from "react";
 import s from "./Navbar.module.scss";
 import { NavLink } from "react-router-dom";
+import Friends from "./friends/Friends";
 
 const Navbar = (props) => {
   return (
@@ -21,29 +22,23 @@ const Navbar = (props) => {
         </NavLink>
       </div>
       <div className={s.item}>
-        <a>News</a>
+      <NavLink to="/news" activeClassName={s.activeLink}>
+          News
+        </NavLink>
       </div>
       <div className={s.item}>
-        <a>Music</a>
+      <NavLink to="/music" activeClassName={s.activeLink}>
+          Music
+        </NavLink>
       </div>
       <div className={s.item}>
-        <a>Settings</a>
+      <NavLink to="/settings" activeClassName={s.activeLink}>
+          Settings
+        </NavLink>
       </div>
 
-      <div className={s.friendsBlock}>
-        <div className={s.friendsTitle}>Friends</div>
-          <div className={s.friends}>
-            {props.friendsData.map((el) => {
-              return ( 
-                <div className={s.friend} key = {el.id} >
-                  <img src={`${el.avatar}`} />
-                  <div className={s.friendsName} >{el.name}</div>
-                </div>
-              );
-            })}
-          </div>
-        
-      </div>
+      <Friends friendsData={props.friendsData}/>
+
     </nav>
   );
 };

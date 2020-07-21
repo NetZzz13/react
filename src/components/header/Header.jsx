@@ -8,7 +8,7 @@ const Header = (props) => {
     <header className={s.header}>
       <div className={s.headerBlock}>
         <NavLink to="/profile">
-          <img src={logo} />
+          <img src={logo} alt="logo"/>
           <span>socium.</span>
           </NavLink>
         <div className={s.loginBlock}>

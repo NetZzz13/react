@@ -1,7 +1,7 @@
 import React from "react";
 import "./App.css";
 import Navbar from "./components/navbar/Navbar";
-import { Route, withRouter, Redirect } from "react-router-dom";
+import { Route, withRouter, Redirect, Switch } from "react-router-dom";
 import DialogsContainer from "./components/dialogs/DialogsContainer";
 import UsersContainer from "./components/users/UsersContainer";
 import ProfileContainer from "./components/profile/ProfileContainer";
@@ -16,9 +16,9 @@ import { BrowserRouter } from "react-router-dom";
 import { Provider } from "react-redux";
 
 class App extends React.Component {
-  constructor(props) {
+  /* constructor(props) {
     super(props);
-  }
+  } */
 
   catchAllUnhandledErrors = (PromiseRejectionEvent) => {
     alert("Some error occured");
@@ -44,19 +44,20 @@ class App extends React.Component {
     return (
       <div className="app-wrapper">
         <HeaderContainer />
-        {
-          <Navbar
-            friendsData={this.props.store.getState().sideBar.friendsData}
-          />
-        }
+        <Navbar />
 
         <div className="app-wrapper-content">
-          <Route exact path="/" render={() => <Redirect to="/profile" />} />
-          <Route exact path="/dialogs" render={() => <DialogsContainer />} />
-          <Route path="/profile/:userId?" render={() => <ProfileContainer />} />
-          <Route exact path="/users" render={() => <UsersContainer />} />
-          <Route exact path="/login" render={() => <Login />} />
-          <Route exact path="*" render={() => <div>404 not found</div>} />
+          <Switch>
+            <Route exact path="/" render={() => <Redirect to="/profile" />} />
+            <Route path="/dialogs" render={() => <DialogsContainer />} />
+            <Route
+              path="/profile/:userId?"
+              render={() => <ProfileContainer />}
+            />
+            <Route path="/users" render={() => <UsersContainer />} />
+            <Route path="/login" render={() => <Login />} />
+            <Route path="*" render={() => <div>404 not found</div>} />
+          </Switch>
         </div>
       </div>
     );
@@ -78,7 +79,7 @@ const SocialApp = (props) => {
   return (
     <BrowserRouter>
       <Provider store={store}>
-        <AppContainer store={store} />
+        <AppContainer />
       </Provider>
     </BrowserRouter>
   );

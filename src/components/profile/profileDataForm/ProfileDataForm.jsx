@@ -7,7 +7,6 @@ import {
   maxLengthCreator,
   minLengthCreator,
 } from "../../../utils/validators/validator";
-import { Contact } from "../profileInfo/ProfileInfo";
 import styles from "../../login/Login.module.scss"
 
 
@@ -26,7 +25,7 @@ const ProfileDataForm = (props) => {
           placeholder="FullName"
           name={"fullName"}
           component={Input}
-          /* validate={[required, maxLength20, minLength4]} */
+          validate={[required, maxLength20, minLength4]}
         />
         
       </div>
@@ -67,7 +66,7 @@ const ProfileDataForm = (props) => {
         <div className={s.contacts}>
           {Object.keys(props.profile.contacts).map((elem) => {
             return (
-              <div className={s.contact}>
+              <div className={s.contact} key={elem}>
                 <b>{elem}:</b>
                 <Field
                   placeholder={elem}

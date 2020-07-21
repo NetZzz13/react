@@ -8,7 +8,7 @@ const User = (props) => {
     <div className={s.user}>
       <div className={s.avaBlock}>
         <NavLink to={"/profile/" + props.user.id}>
-          <img src={props.user.photos.large != null ? props.user.photos.large : userPhoto} />
+          <img src={props.user.photos.large != null ? props.user.photos.large : userPhoto} alt="user avatar from profile" />
         </NavLink>
         {props.user.followed ? (
           <button

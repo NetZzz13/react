@@ -6,6 +6,9 @@ const DELETE_POST = "DELETE_POST";
 const SET_USERS_PROFILE = "SET_USERS_PROFILE";
 const SET_STATUS = "SET_STATUS";
 const SAVE_PHOTO_SUCCESS = "SAVE_PHOTO_SUCCESS";
+const ADD_LIKE = "ADD_LIKE";
+const DELETE_LIKE = "DELETE_LIKE";
+
 
 const initialState = {
   postsData: [
@@ -14,6 +17,7 @@ const initialState = {
   ],
   profile: null,
   status: "",
+  isLike: false
 };
 
 const profileReducer = (state = initialState, action) => {
@@ -24,7 +28,7 @@ const profileReducer = (state = initialState, action) => {
         postsData: [
           ...state.postsData,
           {
-            id: 3,
+            id: state.postsData[state.postsData.length - 1].id + 1,
             message: action.post,
             likeCount: 0,
           },
@@ -35,7 +39,7 @@ const profileReducer = (state = initialState, action) => {
     case DELETE_POST: {
       return {
         ...state,
-        postsData: state.postsData.filter((p) => p.id != action.postId),
+        postsData: state.postsData.filter((p) => p.id !== action.postId),
       };
     }
 
@@ -51,6 +55,30 @@ const profileReducer = (state = initialState, action) => {
       return { ...state, profile: { ...state.profile, photos: action.photos } };
     }
 
+    case ADD_LIKE: {
+      return {
+        ...state,
+        postsData: state.postsData.map((elem) =>
+          elem.id === action.id
+            ? { ...elem, likeCount: elem.likeCount + 1 }
+            : elem
+        ),
+        isLike: true,
+      };
+    }
+
+    case DELETE_LIKE: {
+      return {
+        ...state,
+        postsData: state.postsData.map((elem) =>
+          elem.id === action.id
+            ? { ...elem, likeCount: elem.likeCount - 1 }
+            : elem
+        ),
+        isLike: false
+      };
+    }
+
     default:
       return state;
   }
@@ -62,6 +90,23 @@ export const addPostActionCreator = (post) => {
     post,
   };
 };
+
+export const addLikeActionCreator = (id) => {
+  return {
+    type: ADD_LIKE,
+    id,
+  };
+};
+
+export const deleteLikeActionCreator = (id) => {
+  return {
+    type: DELETE_LIKE,
+    id,
+  };
+};
+
+
+
 
 export const deletePostActionCreator = (postId) => {
   return {

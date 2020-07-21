@@ -13,7 +13,7 @@ const Paginator = (props) => {
   let [portionNumber, setPortionNumber] = useState(1);
   let leftPortionPageNumber = (portionNumber - 1) * props.portionSize + 1;
   let rightPortionPageNumber = portionNumber * props.portionSize;
-
+ 
   return (
     <div>
       {portionNumber > 1 && (
@@ -38,6 +38,7 @@ const Paginator = (props) => {
               onClick={(e) => {
                 props.onChangePage(elem);
               }}
+              key={elem}
             >
               {elem + " "}
             </span>

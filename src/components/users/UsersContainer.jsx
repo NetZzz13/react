@@ -10,7 +10,7 @@ import {
 } from "../../redux/usersReducer";
 import Users from "./Users";
 import Preloader from "../common/Preloader";
-import { withAuthRedirect } from "../hoc/WithAuthRedirect";
+// import { withAuthRedirect } from "../hoc/WithAuthRedirect";
 import { compose } from "redux";
 import {
   getPageSize,
@@ -22,9 +22,9 @@ import {
 } from "../../redux/userSelectors";
 
 export class UsersContainer extends React.Component {
-  constructor(props) {
+  /* constructor(props) {
     super(props);
-  }
+  } */
 
   componentDidMount() {
     this.props.getUsersThunkCreator(
