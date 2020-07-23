@@ -12,12 +12,12 @@ const DELETE_LIKE = "DELETE_LIKE";
 
 const initialState = {
   postsData: [
-    { id: 1, message: "Hi, men", likeCount: 10 },
-    { id: 2, message: "Congratulations!", likeCount: 3 },
+    { id: 1, message: "Hi, men", likeCount: 10, isLike: false },
+    { id: 2, message: "Congratulations!", likeCount: 3, isLike: false },
   ],
   profile: null,
   status: "",
-  isLike: false
+  //isLike: false
 };
 
 const profileReducer = (state = initialState, action) => {
@@ -60,10 +60,10 @@ const profileReducer = (state = initialState, action) => {
         ...state,
         postsData: state.postsData.map((elem) =>
           elem.id === action.id
-            ? { ...elem, likeCount: elem.likeCount + 1 }
+            ? { ...elem, likeCount: elem.likeCount + 1, isLike: true }
             : elem
         ),
-        isLike: true,
+        //isLike: true
       };
     }
 
@@ -72,10 +72,10 @@ const profileReducer = (state = initialState, action) => {
         ...state,
         postsData: state.postsData.map((elem) =>
           elem.id === action.id
-            ? { ...elem, likeCount: elem.likeCount - 1 }
+            ? { ...elem, likeCount: elem.likeCount - 1, isLike: false  }
             : elem
         ),
-        isLike: false
+        //isLike: false
       };
     }
 
@@ -90,6 +90,15 @@ export const addPostActionCreator = (post) => {
     post,
   };
 };
+
+export const deletePostActionCreator = (postId) => {
+  return {
+    type: DELETE_POST,
+    postId
+  };
+};
+
+
 
 export const addLikeActionCreator = (id) => {
   return {
@@ -108,12 +117,6 @@ export const deleteLikeActionCreator = (id) => {
 
 
 
-export const deletePostActionCreator = (postId) => {
-  return {
-    type: DELETE_POST,
-    postId,
-  };
-};
 
 export const setUsersProfile = (profile) => {
   return {

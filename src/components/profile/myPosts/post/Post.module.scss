@@ -1,23 +1,27 @@
-.item{
+.item {
   color: black;
   border: 2px white solid;
   margin-bottom: 10px;
   padding: 10px;
   max-width: 300px;
 
-  img{
+  img {
     width: 30px;
   }
   .like {
     width: 20px;
+    text-align: center;
+    padding-top: 2px;
   }
 }
 
-.likeBlock{
+.likeBlock {
   display: flex;
   justify-content: flex-end;
+  align-items: center;
 }
 
-.likeCount{
-  padding-right: 5px;
+.itemDelete{
+  display: flex;
+  justify-content: flex-end;
 }

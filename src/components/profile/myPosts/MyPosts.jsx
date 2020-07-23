@@ -14,11 +14,12 @@ const MyPosts = (props) => {
       id={p.id}
       message={p.message}
       likeCount={p.likeCount}
+      isLike={p.isLike}
       key={p.id}
       profile={props.profile}
+      deletePost={props.deletePost}
       addLike={props.addLike}
       deleteLike={props.deleteLike}
-      isLike={props.isLike}
     />
   ));
 
@@ -38,7 +39,7 @@ const MyPosts = (props) => {
   );
 };
 
-const maxLength10 = maxLengthCreator(10);
+const maxLength200 = maxLengthCreator(200);
 
 export const AddNewPostForm = (props) => {
   return (
@@ -48,7 +49,7 @@ export const AddNewPostForm = (props) => {
           component={Textarea}
           name={"post"}
           placeholder={"Enter post message"}
-          validate={[required, maxLength10]}
+          validate={[required, maxLength200]}
         />
       </div>
       <div>

@@ -1,6 +1,10 @@
 .header {
   grid-area: h;
-  background-color:#20232a;
+  background-color:#fff;
+  background-color:#221f36;
+  box-shadow: 0 .0625pc 0 0 rgba(139,141,157,.05),10px .0625pc .4375pc 0 rgba(65,71,108,.15) !important;
+  position: sticky;
+  top: 0;
 }
 
 .headerBlock {
@@ -13,6 +17,7 @@
     text-align: center;
     text-decoration: none;
     color: white;
+    //color: #8224e3;
     img {
       height: 80%;
       padding: 0 10px 0 20px;
