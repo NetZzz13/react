@@ -4,18 +4,20 @@
   grid-template-areas: "h h" "n c";
   grid-template-rows: 60px 1fr;
   grid-template-columns: 2fr 10fr;
+  height: 100vh;
   /* grid-gap: 10px */
 }
 
 .app-wrapper-content {
   grid-area: c;
-  background-color: #eeeeee;
+  /* background-color: #eeeeee; */
+  margin: 20px auto;
   
 }
 
-.app-wrapper-content img {
-  width: 50%;
-}
+/* .app-wrapper-content img {
+ width: 50%;
+} */
 
 
 

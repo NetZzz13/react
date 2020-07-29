@@ -12,8 +12,8 @@ const DELETE_LIKE = "DELETE_LIKE";
 
 const initialState = {
   postsData: [
-    { id: 1, message: "Hi, men", likeCount: 10, isLike: false },
-    { id: 2, message: "Congratulations!", likeCount: 3, isLike: false },
+    { id: 1, message: "This is my first message", likeCount: 10, isLike: false },
+    { id: 2, message: "Hi! I'm an musician. Maybe, can you make collab?", likeCount: 3, isLike: false },
   ],
   profile: null,
   status: "",

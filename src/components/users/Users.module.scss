@@ -1,9 +1,16 @@
 .usersBlock{
-  padding: 10px;
+  padding: 30px;
+  border-radius: 20px;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+
 }
 
 .users{
     margin: 15px;
+    
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    
 }
 
 

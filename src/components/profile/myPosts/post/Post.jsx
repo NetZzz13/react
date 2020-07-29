@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import s from "./Post.module.scss";
 import userPhoto from "../../../../assets/images/profile.png";
 import { FcLikePlaceholder, FcLike } from "react-icons/fc";
@@ -6,7 +6,6 @@ import { AiFillCloseSquare } from "react-icons/ai";
 
 
 const Post = (props) => {
-  //debugger
   let onLike = () => {
     !props.isLike ? props.addLike(props.id) : props.deleteLike(props.id);
   };
@@ -19,7 +18,6 @@ const Post = (props) => {
 
 
   let onDeletePost = () => {
-    //debugger
     props.deletePost(props.id);
     //console.log(value);
   };

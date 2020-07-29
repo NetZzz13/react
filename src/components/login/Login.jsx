@@ -28,7 +28,7 @@ const Login = (props) => {
 
   return (
     <div className={s.loginBlock}>
-      <div>Login</div>
+      
       <LoginReduxForm onSubmit={onSubmit} captchaUrl={props.captchaUrl} />
     </div>
   );
@@ -41,22 +41,25 @@ const minLength8 = minLengthCreator(8);
 
 export const LoginForm = (props) => {
   return (
-    <form onSubmit={props.handleSubmit}>
-      <div>
+    <form onSubmit={props.handleSubmit} className={s.loginForm}>
+      <div className={s.login}>Login</div>
+      <div className={s.inputField}>
         <Field
-          placeholder="email"
+          placeholder="Your email"
           name={"email"}
           component={Input}
           validate={[required, maxLength20, minLength4]}
+          className={s.inputBlock}
         />
       </div>
-      <div>
+      <div className={s.inputField}>
         <Field
           type="password"
-          placeholder="password"
+          placeholder="Your password"
           name={"password"}
           component={Input}
           validate={[required, maxLength16, minLength8]}
+          className={s.inputBlock}
         />
       </div>
 
@@ -73,12 +76,13 @@ export const LoginForm = (props) => {
             name={"captcha"}
             component={Input}
             validate={[required]}
+           
           />
         </div>
       ) : null}
 
       {props.error && <div className={s.formSummaryError}>{props.error}</div>}
-      <button>Sign in</button>
+      <button  className={s.buttonBlock}>Sign in</button>
     </form>
   );
 };

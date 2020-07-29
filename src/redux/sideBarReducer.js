@@ -1,3 +1,8 @@
+import userPhoto from "../assets/images/profile.png";
+
+const ADD_USER_TO_FRIENDS = "ADD_USER_TO_FRIENDS";
+const DELETE_USER_FROM_FRIENDS = "DELETE_USER_FROM_FRIENDS";
+
 const initialState = {
   friendsData: [
     {
@@ -21,14 +26,49 @@ const initialState = {
   ],
 };
 
-
 export const sideBarReducer = (state = initialState, action) => {
-  //some code
-  return state;
+  switch (action.type) {
+    case ADD_USER_TO_FRIENDS: {
+      return {
+        ...state,
+        friendsData: [
+          ...state.friendsData,
+          {
+            id:
+              action.id /* state.friendsData[state.friendsData.length - 1].id + 1 */,
+            name: action.name,
+            avatar: action.avatar != null ? action.avatar : userPhoto,
+          },
+        ],
+      };
+    }
+
+    case DELETE_USER_FROM_FRIENDS: {
+      return {
+        ...state,
+        friendsData: state.friendsData.filter((u) => u.id !== action.id),
+      };
+    }
+
+    default:
+      return state;
+  }
 };
 
+export const addUserAC = (id, name, avatar) => {
+  return {
+    type: ADD_USER_TO_FRIENDS,
+    id,
+    name,
+    avatar,
+  };
+};
 
-
-
+export const deleteUserAC = (id) => {
+  return {
+    type: DELETE_USER_FROM_FRIENDS,
+    id,
+  };
+};
 
 export default sideBarReducer;

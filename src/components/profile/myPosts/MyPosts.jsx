@@ -2,10 +2,6 @@ import React from "react";
 import s from "./MyPosts.module.scss";
 import Post from "./post/Post";
 import { Field, reduxForm, reset } from "redux-form";
-import {
-  required,
-  maxLengthCreator,
-} from "../../../utils/validators/validator";
 import { Textarea } from "../../common/FormsControls";
 
 const MyPosts = (props) => {
@@ -28,32 +24,34 @@ const MyPosts = (props) => {
     //console.log(value);
   };
 
-  return (
+  return props.isOwner ? (
     <div className={s.postsBlock}>
-      <h3>My posts</h3>
+      <div className={s.postsTitle}>My posts</div>
       <div className={s.postMessage}>
         <AddNewPostFormRedux onSubmit={addNewPost} />
       </div>
       <div className={s.posts}>{postElements.reverse()}</div>
     </div>
+  ) : (
+    <div className={s.postsBlock}>
+      <div className={s.postsTitle}>Posts</div>
+    </div>
   );
 };
-
-const maxLength200 = maxLengthCreator(200);
 
 export const AddNewPostForm = (props) => {
   return (
     <form onSubmit={props.handleSubmit}>
-      <div>
+      <div className={s.textAreaPost}>
         <Field
           component={Textarea}
           name={"post"}
           placeholder={"Enter post message"}
-          validate={[required, maxLength200]}
+          className={s.textareaEditForm}
         />
       </div>
       <div>
-        <button>Push</button>
+        <button className={s.buttonPushPost}>Add Post</button>
       </div>
     </form>
   );

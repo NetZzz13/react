@@ -8,6 +8,7 @@ import {
   followThunkCreator,
   unfollowThunkCreator,
 } from "../../redux/usersReducer";
+import { addUserAC, deleteUserAC } from "../../redux/sideBarReducer";
 import Users from "./Users";
 import Preloader from "../common/Preloader";
 // import { withAuthRedirect } from "../hoc/WithAuthRedirect";
@@ -49,20 +50,20 @@ export class UsersContainer extends React.Component {
 
     return (
       <>
-      {this.props.isFetching ? <Preloader/> : null}
+        {this.props.isFetching ? <Preloader /> : <div>All users</div>}
 
-       
-          <Users
-            totalUsersCount={this.props.totalUsersCount}
-            pageSize={this.props.pageSize}
-            currentPage={this.props.currentPage}
-            users={this.props.users}
-            onChangePage={this.onChangePage}
-            followingProgress={this.props.followingProgress}
-            followThunkCreator={this.props.followThunkCreator}
-            unfollowThunkCreator={this.props.unfollowThunkCreator}
-          />
-        
+        <Users
+          totalUsersCount={this.props.totalUsersCount}
+          pageSize={this.props.pageSize}
+          currentPage={this.props.currentPage}
+          users={this.props.users}
+          onChangePage={this.onChangePage}
+          followingProgress={this.props.followingProgress}
+          followThunkCreator={this.props.followThunkCreator}
+          unfollowThunkCreator={this.props.unfollowThunkCreator}
+          addUserAC={this.props.addUserAC}
+          deleteUserAC={this.props.deleteUserAC}
+        />
       </>
     );
   }
@@ -99,6 +100,8 @@ export default compose(
     getUsersThunkCreator,
     followThunkCreator,
     unfollowThunkCreator,
+    addUserAC,
+    deleteUserAC,
   }) /* ,
   withAuthRedirect */
 )(UsersContainer);

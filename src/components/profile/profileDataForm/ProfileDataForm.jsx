@@ -1,5 +1,5 @@
 import React from "react";
-import s from "../profileInfo/ProfileInfo.module.scss";
+import s from "../profileDataForm/ProfileDataForm.module.scss";
 import { Field, reduxForm } from "redux-form";
 import { Input, Textarea } from "../../common/FormsControls";
 import {
@@ -15,17 +15,18 @@ const ProfileDataForm = (props) => {
   const minLength4 = minLengthCreator(4);
 
   return (
-    <form onSubmit={props.handleSubmit}>
+    <form onSubmit={props.handleSubmit} className={s.profileEditMode}>
       {props.error && <div className={styles.formSummaryError}>{props.error}</div>}
 
      
-      <div className={s.nickname}>
+      <div>
         <b>Full name: </b>
         <Field
           placeholder="FullName"
           name={"fullName"}
           component={Input}
           validate={[required, maxLength20, minLength4]}
+          className={s.inputsEditForm}
         />
         
       </div>
@@ -36,19 +37,23 @@ const ProfileDataForm = (props) => {
           placeholder="enter some text about you..."
           name={"aboutMe"}
           component={Textarea}
+          className={s.textareaEditForm}
           /* validate={[required, maxLength20, minLength4]} */
         />
       </div>
       <div>
-        <b>Looking for a job:</b>
-
-        <Field
-          placeholder="LookingForAJob"
-          name={"lookingForAJob"}
-          component={Input}
-          type={"checkbox"}
-          /* validate={[required, maxLength20, minLength4]} */
-        />
+        <div className={s.lookingForAJob}>
+          <b>Looking for a job:</b>
+  
+          <Field
+            placeholder="LookingForAJob"
+            name={"lookingForAJob"}
+            component={Input}
+            type={"checkbox"}
+            className={s.lookingForAJobInput}
+            /* validate={[required, maxLength20, minLength4]} */
+          />
+        </div>
 
         <div>
           <b>My professional skills:</b>
@@ -56,6 +61,7 @@ const ProfileDataForm = (props) => {
             placeholder="my skills..."
             name={"lookingForAJobDescription"}
             component={Textarea}
+            className={s.textareaEditForm}
             /* validate={[required, maxLength20, minLength4]} */
           />
         </div>
@@ -73,6 +79,7 @@ const ProfileDataForm = (props) => {
                   //contacts is an object, so we have to indicate elem of this object for right sending to server
                   name={"contacts." + elem}
                   component={Input}
+                  className={s.inputsEditForm}
                   /* validate={[required, maxLength20, minLength4]} */
                 />
               </div>
@@ -81,7 +88,7 @@ const ProfileDataForm = (props) => {
         </div>
       </div>
       <div>
-        <button>Save</button>
+        <button className={s.saveEditMode}>Save</button>
       </div>
     </form>
   );

@@ -5,7 +5,7 @@ import { connect } from "react-redux";
 const Friends = (props) => {
   return (
     <div className={s.friendsBlock}>
-      <div className={s.friendsTitle}>Friends</div>
+      <div className={s.friendsTitle}>My friends</div>
       <div className={s.friends}>
         {props.friendsData.map((el) => {
           return (

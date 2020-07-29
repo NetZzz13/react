@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import { useEffect } from "react";
+import s from "../profileDataForm/ProfileDataForm.module.scss";
+
 
 const ProfileStatusWithHooks = (props) => {
   let [editMode, setEditMode] = useState(false);
@@ -24,8 +26,10 @@ const ProfileStatusWithHooks = (props) => {
 
   return (
     <div>
-      {!editMode && (
+      {!editMode &&(
+        props.isOwner ?
         <div onDoubleClick={activateMode}><b>My status:</b> {props.status || "no status"}</div>
+        : <div><b>Status:</b> {props.status || "no status"}</div>
       )}
 
       {editMode && (
@@ -35,6 +39,7 @@ const ProfileStatusWithHooks = (props) => {
             autoFocus={true}
             onBlur={deActivateMode}
             value={status}
+            className={s.inputsEditForm}
           />
         </div>
       )}

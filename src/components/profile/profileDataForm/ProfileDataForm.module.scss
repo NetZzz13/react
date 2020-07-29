@@ -1,4 +1,4 @@
-.postsBlock {
+.profileEditMode {
   display: flex;
   flex-direction: column;
   text-align: start;
@@ -7,34 +7,52 @@
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
   width: 500px;
   color: black;
-  .postsTitle{
-    font-weight: 700;
-    font-size: 20px;
-    margin-bottom: 10px;
-  }
+
+
+
 }
 
-.postMessage {
+.inputsEditForm {
+  font-size: 18px;
+  height: 30px;
+  vertical-align: middle;
+  display: inline-block;
+  width: 50%;
+  padding: 0;
+  padding-left: 10px;
+  background: #f3eef8;
+  color: black;
+  border: none;
+  border-radius: 7px;
+  transition: 0.2s ease-in-out;
   margin-bottom: 10px;
-  
+  font-family: 'Poppins', sans-serif;
 }
-
-
 
 .textareaEditForm {
   font-size: 18px;
   background: #f3eef8;
-  width: 100%;
+  width: 50%;
   border: none;
   border-radius: 7px;
+  padding-left: 10px;
   //outline : none;
   resize: none;
   font-family: 'Poppins', sans-serif;
 }
 
+.contacts {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  margin-left: 20px;
+
+  .inputsEditForm {
+    width: 90%;
+  }
+}
 
 
-.buttonPushPost{
+.saveEditMode {
   height: 30px;
   width: 100px;
   background-color: #8224e3;
@@ -48,6 +66,8 @@
   }
 }
 
+.lookingForAJob{
+  display: flex;
 
-
-
+  
+}

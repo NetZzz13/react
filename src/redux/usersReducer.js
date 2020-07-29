@@ -10,7 +10,7 @@ const TOOGLE_FOLLOWING_PROGRESS = "TOOGLE_FOLLOWING_PROGRESS";
 
 const initialState = {
   users: [],
-  pageSize: 10,
+  pageSize: 12,
   totalUsersCount: 0,
   currentPage: 1,
   isFetching: false,
@@ -141,6 +141,7 @@ export const getUsersThunkCreator = (currentPage, pageSize) => {
 export const followThunkCreator = (userId) => {
   return (dispatch) => {
     dispatch(toogleFollowingProgress(true, userId));
+
     usersAPI.follow(userId).then((response) => {
       if (response.data.resultCode === 0) {
         dispatch(followSuccess(userId));

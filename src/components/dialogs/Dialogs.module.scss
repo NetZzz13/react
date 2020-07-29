@@ -1,17 +1,28 @@
 .dialogs {
   display: grid;
-  grid-template-columns: 2fr 10fr;
+  grid-template-columns: 5fr 10fr;
+  grid-template-areas:
+  "di mes"
+  ". ne" 
+  ;
   padding: 20px;
+
+
+  form{
+    grid-area: ne;
+  }
   .dialogsItems {
+    grid-area: di;
     .dialog {
       color: white;
-      img{
+
+      img {
         object-fit: cover;
         width: 30px;
         height: 30px;
         border-radius: 15px;
       }
-      a{
+      a {
         color: black;
         text-decoration: none;
       }
@@ -22,13 +33,48 @@
     }
   }
   .messages {
+    grid-area: di;
+    margin: 0 auto;
     .message {
+      display: flex;
+      border-radius: 20px;
+      box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+      width: 300px;
+
       color: black;
+      margin: 0 20px 20px 20px;
+      padding: 10px;
     }
   }
 }
 
-.messagesForm{
+.messagesForm {
   padding: 30px;
 }
 
+
+.buttonPushPost{
+  height: 30px;
+  width: 150px;
+  background-color: #8224e3;
+  border: 1px solid #eceff5;
+  border-radius: 7px;
+  transition: 0.2s ease-in-out;
+  color: white;
+  font-size: 18px;
+  &:hover {
+    background-color: #bc79ff;
+  }
+}
+
+.textareaEditForm {
+  font-size: 18px;
+  background: #f3eef8;
+  width: 100%;
+  border: none;
+  border-radius: 7px;
+  padding: 10px;
+  //outline : none;
+  resize: none;
+  font-family: 'Poppins', sans-serif;
+}

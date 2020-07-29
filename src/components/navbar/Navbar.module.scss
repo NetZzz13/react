@@ -1,22 +1,37 @@
 .nav {
   grid-area: n;
-  background-color: #221f36;
+  //background-color: #221f36;
+  background-color: #fff;
+  box-shadow: 0in 1px 6.75pt -0.020833333in #d2d2d2;
   padding: 20px;
+  display: flex;
+  flex-direction: column;
 }
 
 .item {
-  color: blue;
-
-  a {
-    text-decoration: none;
-    color: white;
-    &.activeLink {
-      color: red;
-    }
+  //background-color: #221f36;
+  text-decoration: none;
+  border-radius: 6pt;
+  margin-bottom: 5px;
+  letter-spacing: 1px;
+  text-align: center;
+  color: #202124;
+  line-height: 50px;
+  &:hover {
+    background-color: #f1f3f4;
+    color: #8224e3;
+    transform: scale(1.1);
+    transition: 0.4s ease-in-out;
+  }
+  &:last-of-type {
+    margin-bottom: 50px;
   }
 }
 
-.active {
-  color: green;
+.activeLink {
+  color: #8224e3;
 }
 
+/* .active {
+  color: green;
+} */

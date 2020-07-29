@@ -6,39 +6,54 @@ import { NavLink } from "react-router-dom";
 const User = (props) => {
   return (
     <div className={s.user}>
-      <div className={s.avaBlock}>
+      <div className={s.userName}>{props.user.name}</div>
+
+      <div className={s.userAvatar}>
         <NavLink to={"/profile/" + props.user.id}>
-          <img src={props.user.photos.large != null ? props.user.photos.large : userPhoto} alt="user avatar from profile" />
+          <img
+            src={
+              props.user.photos.large != null
+                ? props.user.photos.large
+                : userPhoto
+            }
+            alt="user avatar from profile"
+          />
         </NavLink>
+      </div>
+
+      <div className={s.usersFollowing}>
+        {" "}
         {props.user.followed ? (
           <button
-            disabled={props.followingProgress.some((id) => id === props.user.id)}
+            disabled={props.followingProgress.some(
+              (id) => id === props.user.id
+            )}
             onClick={() => {
               props.unfollowThunkCreator(props.user.id);
+              //delete user from array of friends
+              props.deleteUserAC(props.user.id);
             }}
           >
             Unfollow
           </button>
         ) : (
           <button
-            disabled={props.followingProgress.some((id) => id === props.user.id)}
+            disabled={props.followingProgress.some(
+              (id) => id === props.user.id
+            )}
             onClick={() => {
               props.followThunkCreator(props.user.id);
+              //add user to array of friends
+              props.addUserAC(
+                props.user.id,
+                props.user.name,
+                props.user.photos.large
+              );
             }}
           >
             Follow
           </button>
         )}
-      </div>
-      <div className={s.infoBlock}>
-        <div className={s.infoMain}>
-          <div>{props.user.name}</div>
-          <div>{props.user.status}</div>
-        </div>
-        <div>
-          <div>{"u.location.city"}</div>
-          <div>{"u.location.country"}</div>
-        </div>
       </div>
     </div>
   );

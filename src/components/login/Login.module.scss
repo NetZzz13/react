@@ -1,15 +1,72 @@
-.loginBlock{
-  padding: 30px;
+.loginBlock {
+  
+  
+  width: 100%;
+  height: 100%;
+  font-size: 18px;
+  /* display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center; */
 }
 
-.formSummaryError{
+.formSummaryError {
   border: solid red 2px;
   padding: 5px;
   color: rebeccapurple;
 }
 
-.rememberMe{
- display: flex;
+.rememberMe {
+  display: flex;
+  text-align: center;
+    margin-bottom: 10px;
 }
 
 
+.inputField{
+  width: 100%;
+
+  .inputBlock {
+    font-size: 18px;
+    height: 43px;
+    vertical-align: middle;
+    display: inline-block;
+    width: 100%;
+    padding: 0;
+    padding-left: 5px;
+    background: #b5adbd;
+    color: #fff;
+    border: 1px solid #eceff5;
+    border-radius: 7px;
+    transition: 0.2s ease-in-out;
+    margin-bottom: 10px;
+    border: 1px solid #000;
+   
+  }
+}
+
+
+.buttonBlock {
+  height: 43px;
+  width: 100%;
+  background-color: #8224e3;
+  border: 1px solid #eceff5;
+  border-radius: 7px;
+  transition: 0.2s ease-in-out;
+  color: white;
+  font-size: 18px;
+  &:hover{
+    background-color: #bc79ff;
+  }
+}
+
+.loginForm{
+  max-width: 250px;
+  padding: 30px;
+  
+  .login {
+    text-align: center;
+    margin-bottom: 10px;
+    
+  }
+}

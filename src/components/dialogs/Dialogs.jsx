@@ -4,7 +4,7 @@ import Dialog from "./dialog/Dialog";
 import Message from "./message/Message";
 import { reduxForm, Field, reset } from "redux-form";
 import { Textarea } from "../common/FormsControls";
-import { maxLengthCreator, required } from "../../utils/validators/validator";
+import { maxLengthCreator, required, minLengthCreator } from "../../utils/validators/validator";
 
 const Dialogs = (props) => {
   let dialogElements = props.dialogsPage.dialogsData.map((d) => (
@@ -24,24 +24,30 @@ const Dialogs = (props) => {
       <div>
         <div className={s.messages}> {messageElements}</div>
       </div>
+      
       <AddMessageFormRedux onSubmit={addNewMessage} />
     </div>
   );
 };
 const maxLength50 = maxLengthCreator(50);
+const minLength1 = minLengthCreator(1);
+
 
 export const AddMessageForm = (props) => {
   return (
     <form onSubmit={props.handleSubmit}>
       <div>
         <Field
-          placeholder="your text"
+          placeholder="Enter your message"
           name={"message"}
           component={Textarea}
-          validate={[required, maxLength50]}
+          className={s.textareaEditForm}
+          
+          validate={[required, minLength1, maxLength50 ] }
+         
         />
       </div>
-      <button>Add Message</button>
+      <button className={s.buttonPushPost}>Add Message</button>
     </form>
   );
 };

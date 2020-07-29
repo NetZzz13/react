@@ -6,6 +6,8 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   font-family: 'Poppins', sans-serif;
+  /* font-family: 'Montserrat', sans-serif; */
+  font-size: 18px;
 }
 
 code {
@@ -13,3 +15,6 @@ code {
     monospace;
 }
 
+button{
+  font-family: 'Poppins', sans-serif;
+}

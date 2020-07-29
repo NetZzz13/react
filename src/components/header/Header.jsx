@@ -2,20 +2,25 @@ import React from "react";
 import s from "./Header.module.scss";
 import { NavLink } from "react-router-dom";
 import logo from "../../assets/images/logo.png";
+import { GrLogout } from "react-icons/gr";
+
 const Header = (props) => {
- 
   return (
     <header className={s.header}>
       <div className={s.headerBlock}>
         <NavLink to="/profile">
-          <img src={logo} alt="logo"/>
+          <img src={logo} alt="logo" />
           <span>socium.</span>
-          </NavLink>
+        </NavLink>
         <div className={s.loginBlock}>
-          
-          {props.isAuth
-          ? <NavLink to="/login">{props.login} - <button onClick={props.logoutThunkCreator}>Logout</button></NavLink>
-          : <NavLink to="/login">Login</NavLink>}
+          {props.isAuth ? (
+            <NavLink to="/login">
+              <div className={s.login}>{props.login}</div>
+              <GrLogout onClick={props.logoutThunkCreator}>Logout</GrLogout>
+            </NavLink>
+          ) : (
+            <NavLink to="/login">Login</NavLink>
+          )}
         </div>
       </div>
     </header>
