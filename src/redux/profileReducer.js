@@ -9,11 +9,20 @@ const SAVE_PHOTO_SUCCESS = "SAVE_PHOTO_SUCCESS";
 const ADD_LIKE = "ADD_LIKE";
 const DELETE_LIKE = "DELETE_LIKE";
 
-
 const initialState = {
   postsData: [
-    { id: 1, message: "This is my first message", likeCount: 10, isLike: false },
-    { id: 2, message: "Hi! I'm an musician. Maybe, can you make collab?", likeCount: 3, isLike: false },
+    {
+      id: 1,
+      message: "This is my first message",
+      likeCount: 10,
+      isLike: false,
+    },
+    {
+      id: 2,
+      message: "Hi! I'm an musician. Maybe, can you make collab?",
+      likeCount: 3,
+      isLike: false,
+    },
   ],
   profile: null,
   status: "",
@@ -72,7 +81,7 @@ const profileReducer = (state = initialState, action) => {
         ...state,
         postsData: state.postsData.map((elem) =>
           elem.id === action.id
-            ? { ...elem, likeCount: elem.likeCount - 1, isLike: false  }
+            ? { ...elem, likeCount: elem.likeCount - 1, isLike: false }
             : elem
         ),
         //isLike: false
@@ -94,11 +103,9 @@ export const addPostActionCreator = (post) => {
 export const deletePostActionCreator = (postId) => {
   return {
     type: DELETE_POST,
-    postId
+    postId,
   };
 };
-
-
 
 export const addLikeActionCreator = (id) => {
   return {
@@ -113,10 +120,6 @@ export const deleteLikeActionCreator = (id) => {
     id,
   };
 };
-
-
-
-
 
 export const setUsersProfile = (profile) => {
   return {

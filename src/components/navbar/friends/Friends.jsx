@@ -10,7 +10,7 @@ const Friends = (props) => {
         {props.friendsData.map((el) => {
           return (
             <div className={s.friend} key={el.id}>
-              <img src={`${el.avatar}`} alt="friend avatar"/>
+              <img src={`${el.avatar}`} alt="friend avatar" />
               <div className={s.friendsName}>{el.name}</div>
             </div>
           );
@@ -22,7 +22,7 @@ const Friends = (props) => {
 
 let mapStateToProps = (state) => {
   return {
-    friendsData: state.sideBar.friendsData
+    friendsData: state.sideBar.friendsData,
   };
 };
 
