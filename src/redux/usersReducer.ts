@@ -1,3 +1,4 @@
+import {UserType } from './../types/types';
 import { usersAPI } from "../api/api";
 
 const FOLLOW = "FOLLOW";
@@ -8,22 +9,28 @@ const SET_USERS_TOTAL_COUNT = "SET_USERS_TOTAL_COUNT";
 const TOOGLE_IS_FETCHING = "TOOGLE_IS_FETCHING";
 const TOOGLE_FOLLOWING_PROGRESS = "TOOGLE_FOLLOWING_PROGRESS";
 
+
+
+
+
 const initialState = {
-  users: [],
+  users: [] as Array<UserType>,
   pageSize: 12,
   totalUsersCount: 0,
   currentPage: 1,
   isFetching: false,
-  followingProgress: [],
+  followingProgress: [] as Array<number> // array of users id
 };
 
-export const usersReducer = (state = initialState, action) => {
+type initialStateType = typeof initialState;
+
+export const usersReducer = (state = initialState, action: any): initialStateType => {
   switch (action.type) {
     case FOLLOW: {
       return {
         ...state,
         //users: [...state.users], //но лучше map(), т.к. map создаёт новый массив с теми же самыми юзерами
-        users: state.users.map((u) => {
+        users: state.users.map((u: UserType) => {
           if (u.id === action.userId) {
             return { ...u, followed: true };
           }
@@ -34,7 +41,7 @@ export const usersReducer = (state = initialState, action) => {
     case UNFOLLOW: {
       return {
         ...state,
-        users: state.users.map((u) => {
+        users: state.users.map((u: UserType) => {
           if (u.id === action.userId) {
             return { ...u, followed: false };
           }
@@ -75,61 +82,99 @@ export const usersReducer = (state = initialState, action) => {
   }
 };
 
-export const followSuccess = (userId) => {
+type FollowSuccessActionType = {
+  type: typeof FOLLOW,
+  userId: number
+}
+
+export const followSuccess = (userId: number):FollowSuccessActionType => {
   return {
     type: FOLLOW,
     userId,
   };
 };
 
-export const unfollowSuccess = (userId) => {
+
+type UnfollowSuccessActionType = {
+  type: typeof UNFOLLOW,
+  userId: number
+}
+
+export const unfollowSuccess = (userId: number):UnfollowSuccessActionType  => {
   return {
     type: UNFOLLOW,
     userId,
   };
 };
 
-export const setUsers = (users) => {
+type SetUsersActionType = {
+  type: typeof SET_USERS,
+  users: Array<UserType>
+}
+
+export const setUsers = (users: Array<UserType>):SetUsersActionType => {
   return {
     type: SET_USERS,
     users,
   };
 };
 
-export const setUsersTotalCount = (totalUsersCount) => {
+type setUsersTotalCountActionType = {
+  type: typeof SET_USERS_TOTAL_COUNT,
+  totalUsersCount: number
+}
+
+export const setUsersTotalCount = (totalUsersCount: number): setUsersTotalCountActionType => {
   return {
     type: SET_USERS_TOTAL_COUNT,
     totalUsersCount,
   };
 };
 
-export const setCurrentPage = (currentPage) => {
+type setCurrentPageActionType = {
+  type: typeof SET_CURRENT_PAGE,
+  currentPage: number
+}
+
+export const setCurrentPage = (currentPage: number): setCurrentPageActionType => {
   return {
     type: SET_CURRENT_PAGE,
     currentPage,
   };
 };
 
-export const toogleIsFetching = (isFetching) => {
+type ToogleIsFetchingActionType = {
+  type: typeof TOOGLE_IS_FETCHING,
+  isFetching: boolean
+}
+
+export const toogleIsFetching = (isFetching: boolean): ToogleIsFetchingActionType => {
   return {
     type: TOOGLE_IS_FETCHING,
     isFetching,
   };
 };
 
-export const toogleFollowingProgress = (isFetching, userId) => {
+
+type ToogleFollowingProgressActionType = {
+  type: typeof TOOGLE_FOLLOWING_PROGRESS,
+  isFetching: boolean,
+  userId: number
+}
+
+export const toogleFollowingProgress = (isFetching: boolean, userId: number): ToogleFollowingProgressActionType => {
   return {
     type: TOOGLE_FOLLOWING_PROGRESS,
     isFetching,
-    userId,
+    userId
   };
 };
 
-export const getUsersThunkCreator = (currentPage, pageSize) => {
-  return (dispatch) => {
+export const getUsersThunkCreator = (currentPage: number, pageSize: number) => {
+  return (dispatch: any) => {
     dispatch(toogleIsFetching(true));
 
-    usersAPI.getUsers(currentPage, pageSize).then((response) => {
+    usersAPI.getUsers(currentPage, pageSize).then((response: any) => {
       dispatch(setCurrentPage(currentPage));
       dispatch(toogleIsFetching(false));
       dispatch(setUsers(response.items));
@@ -138,11 +183,11 @@ export const getUsersThunkCreator = (currentPage, pageSize) => {
   };
 };
 
-export const followThunkCreator = (userId) => {
-  return (dispatch) => {
+export const followThunkCreator = (userId: number) => {
+  return (dispatch: any) => {
     dispatch(toogleFollowingProgress(true, userId));
 
-    usersAPI.follow(userId).then((response) => {
+    usersAPI.follow(userId).then((response: any) => {
       if (response.data.resultCode === 0) {
         dispatch(followSuccess(userId));
       }
@@ -151,10 +196,10 @@ export const followThunkCreator = (userId) => {
   };
 };
 
-export const unfollowThunkCreator = (userId) => {
-  return (dispatch) => {
+export const unfollowThunkCreator = (userId: number) => {
+  return (dispatch: any) => {
     dispatch(toogleFollowingProgress(true, userId));
-    usersAPI.unfollow(userId).then((response) => {
+    usersAPI.unfollow(userId).then((response: any) => {
       if (response.data.resultCode === 0) {
         dispatch(unfollowSuccess(userId));
       }

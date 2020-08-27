@@ -1,3 +1,4 @@
+import { PostType, ProfileType, PhotosType } from './../types/types';
 import { profileAPI } from "../api/api";
 import { stopSubmit } from "redux-form";
 
@@ -8,6 +9,7 @@ const SET_STATUS = "SET_STATUS";
 const SAVE_PHOTO_SUCCESS = "SAVE_PHOTO_SUCCESS";
 const ADD_LIKE = "ADD_LIKE";
 const DELETE_LIKE = "DELETE_LIKE";
+
 
 const initialState = {
   postsData: [
@@ -23,13 +25,18 @@ const initialState = {
       likeCount: 3,
       isLike: false,
     },
-  ],
-  profile: null,
+  ] as Array<PostType>,
+  profile: null as ProfileType | null,
   status: "",
-  //isLike: false
+  newPostText: "",
 };
 
-const profileReducer = (state = initialState, action) => {
+export type InitialStateType = typeof initialState;
+
+const profileReducer = (
+  state = initialState,
+  action: any
+): InitialStateType => {
   switch (action.type) {
     case ADD_POST: {
       return {
@@ -61,7 +68,10 @@ const profileReducer = (state = initialState, action) => {
     }
 
     case SAVE_PHOTO_SUCCESS: {
-      return { ...state, profile: { ...state.profile, photos: action.photos } };
+      return {
+        ...state,
+        profile: { ...state.profile, photos: action.photos } as ProfileType,
+      };
     }
 
     case ADD_LIKE: {
@@ -93,74 +103,123 @@ const profileReducer = (state = initialState, action) => {
   }
 };
 
-export const addPostActionCreator = (post) => {
+type AddPostActionCreatorActionType = {
+  type: typeof ADD_POST;
+  post: string;
+};
+
+export const addPostActionCreator = (
+  post: string
+): AddPostActionCreatorActionType => {
   return {
     type: ADD_POST,
     post,
   };
 };
 
-export const deletePostActionCreator = (postId) => {
+type DeletePostActionCreatorActionType = {
+  type: typeof DELETE_POST;
+  postId: number;
+};
+
+export const deletePostActionCreator = (
+  postId: number
+): DeletePostActionCreatorActionType => {
   return {
     type: DELETE_POST,
     postId,
   };
 };
 
-export const addLikeActionCreator = (id) => {
+type AddLikeActionCreatorActionType = {
+  type: typeof ADD_LIKE;
+  id: number;
+};
+
+export const addLikeActionCreator = (
+  id: number
+): AddLikeActionCreatorActionType => {
   return {
     type: ADD_LIKE,
     id,
   };
 };
 
-export const deleteLikeActionCreator = (id) => {
+type DeleteLikeActionCreatorActionType = {
+  type: typeof DELETE_LIKE;
+  id: number;
+};
+
+export const deleteLikeActionCreator = (
+  id: number
+): DeleteLikeActionCreatorActionType => {
   return {
     type: DELETE_LIKE,
     id,
   };
 };
 
-export const setUsersProfile = (profile) => {
+type SetUsersProfileCreatorActionType = {
+  type: typeof SET_USERS_PROFILE;
+  profile: ProfileType;
+};
+
+export const setUsersProfile = (
+  profile: ProfileType
+): SetUsersProfileCreatorActionType => {
   return {
     type: SET_USERS_PROFILE,
     profile,
   };
 };
 
-export const setUserStatus = (status) => {
+type SetUserStatusCreatorActionType = {
+  type: typeof SET_STATUS;
+  status: string;
+};
+
+export const setUserStatus = (
+  status: string
+): SetUserStatusCreatorActionType => {
   return {
     type: SET_STATUS,
     status,
   };
 };
 
-export const savePhotoSuccess = (photos) => {
+type SavePhotoSuccessCreatorActionType = {
+  type: typeof SAVE_PHOTO_SUCCESS;
+  photos: PhotosType;
+};
+
+export const savePhotoSuccess = (
+  photos: PhotosType
+): SavePhotoSuccessCreatorActionType => {
   return {
     type: SAVE_PHOTO_SUCCESS,
     photos,
   };
 };
 
-export const getProfileThunkCreator = (userId) => {
-  return (dispatch) => {
-    profileAPI.getProfile(userId).then((response) => {
+export const getProfileThunkCreator = (userId: number) => {
+  return (dispatch: any) => {
+    profileAPI.getProfile(userId).then((response: any) => {
       dispatch(setUsersProfile(response.data));
     });
   };
 };
 
-export const getStatusThunkCreator = (userId) => {
-  return (dispatch) => {
-    profileAPI.getStatus(userId).then((response) => {
+export const getStatusThunkCreator = (userId: number) => {
+  return (dispatch: any) => {
+    profileAPI.getStatus(userId).then((response: any) => {
       dispatch(setUserStatus(response.data));
     });
   };
 };
 
-export const updateStatusThunkCreator = (status) => {
-  return (dispatch) => {
-    profileAPI.updateStatus(status).then((response) => {
+export const updateStatusThunkCreator = (status: any) => {
+  return (dispatch: any) => {
+    profileAPI.updateStatus(status).then((response: any) => {
       if (response.data.resultCode === 0) {
         dispatch(setUserStatus(status));
       }
@@ -168,9 +227,9 @@ export const updateStatusThunkCreator = (status) => {
   };
 };
 
-export const savePhotoTC = (file) => {
-  return (dispatch) => {
-    profileAPI.savePhoto(file).then((response) => {
+export const savePhotoTC = (file: any) => {
+  return (dispatch: any) => {
+    profileAPI.savePhoto(file).then((response: any) => {
       if (response.data.resultCode === 0) {
         dispatch(savePhotoSuccess(response.data.data.photos));
       }
@@ -178,7 +237,10 @@ export const savePhotoTC = (file) => {
   };
 };
 
-export const saveProfileFormTC = (profile) => async (dispatch, getState) => {
+export const saveProfileFormTC = (profile: any) => async (
+  dispatch: any,
+  getState: any
+) => {
   const userId = getState().auth.userId;
   const response = await profileAPI.saveProfile(profile);
 

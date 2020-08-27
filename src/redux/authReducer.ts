@@ -4,15 +4,21 @@ import { stopSubmit } from "redux-form";
 const AUTH_USER = "AUTH_USER";
 const GET_CAPTCHA_URL_SUCCESS = "GET_CAPTCHA_URL_SUCCESS";
 
+
 const initialState = {
-  userId: null,
-  email: null,
-  login: null,
+  userId: null as number | null,
+  email: null as string | null,
+  login: null as string | null,
   isAuth: false,
-  captchaUrl: null, //if null, then captcha is not required
+  captchaUrl: null as string | null, //if null, then captcha is not required
 };
 
-export const authReducer = (state = initialState, action) => {
+export type InitialStateType = typeof initialState;
+
+export const authReducer = (
+  state = initialState,
+  action: any
+): InitialStateType => {
   switch (action.type) {
     case AUTH_USER: {
       return { ...state, ...action.payload };
@@ -27,14 +33,38 @@ export const authReducer = (state = initialState, action) => {
   }
 };
 
-export const setAuthUserData = (userId, email, login, isAuth) => {
+type setAuthUserDataActionPayloadType = {
+  userId: number | null;
+  email: string | null;
+  login: string | null;
+  isAuth: boolean;
+};
+
+type setAuthUserDataActionType = {
+  type: typeof AUTH_USER;
+  payload: setAuthUserDataActionPayloadType;
+};
+
+export const setAuthUserData = (
+  userId: number | null,
+  email: string | null,
+  login: string | null,
+  isAuth: boolean
+): setAuthUserDataActionType => {
   return {
     type: AUTH_USER,
     payload: { userId, email, login, isAuth },
   };
 };
 
-export const getCaptchaUrlSuccess = (captchaUrl) => {
+type getCaptchaUrlSuccessActionType = {
+  type: typeof GET_CAPTCHA_URL_SUCCESS;
+  captchaUrl?: string;
+};
+
+export const getCaptchaUrlSuccess = (
+  captchaUrl: string
+): getCaptchaUrlSuccessActionType => {
   return {
     type: GET_CAPTCHA_URL_SUCCESS,
     captchaUrl,
@@ -60,7 +90,7 @@ export const getCaptchaUrlSuccess = (captchaUrl) => {
 
 //refactor
 export const getAuthUserData = () => {
-  return async (dispatch) => {
+  return async (dispatch: any) => {
     let response = await authAPI.authMe();
     if (response.data.resultCode === 0) {
       dispatch(
@@ -75,8 +105,13 @@ export const getAuthUserData = () => {
   };
 };
 
-export const loginThunkCreator = (email, password, rememderMe, captcha) => {
-  return async (dispatch) => {
+export const loginThunkCreator = (
+  email: string,
+  password: string,
+  rememderMe: boolean,
+  captcha: string
+) => {
+  return async (dispatch: any) => {
     let response = await authAPI.login(email, password, rememderMe, captcha);
     if (response.data.resultCode === 0) {
       dispatch(getAuthUserData());
@@ -94,7 +129,7 @@ export const loginThunkCreator = (email, password, rememderMe, captcha) => {
 };
 
 export const logoutThunkCreator = () => {
-  return async (dispatch) => {
+  return async (dispatch: any) => {
     let response = await authAPI.logout();
     if (response.data.resultCode === 0) {
       dispatch(setAuthUserData(null, null, null, false));
@@ -103,7 +138,7 @@ export const logoutThunkCreator = () => {
 };
 
 export const getCaptchaUrlTC = () => {
-  return async (dispatch) => {
+  return async (dispatch: any) => {
     const response = await securityAPI.getCaptcha();
     const captchaUrl = response.data.url;
     dispatch(getCaptchaUrlSuccess(captchaUrl));

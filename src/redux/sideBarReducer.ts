@@ -3,6 +3,12 @@ import userPhoto from "../assets/images/profile.png";
 const ADD_USER_TO_FRIENDS = "ADD_USER_TO_FRIENDS";
 const DELETE_USER_FROM_FRIENDS = "DELETE_USER_FROM_FRIENDS";
 
+type FriendType = {
+  id: number;
+  name: string;
+  avatar: string;
+};
+
 const initialState = {
   friendsData: [
     {
@@ -23,10 +29,15 @@ const initialState = {
       avatar:
         "https://images.unsplash.com/photo-1541260894924-7ff059b93d54?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=675&q=80",
     },
-  ],
+  ] as Array<FriendType>,
 };
 
-export const sideBarReducer = (state = initialState, action) => {
+type initialStateType = typeof initialState;
+
+export const sideBarReducer = (
+  state = initialState,
+  action: any
+): initialStateType => {
   switch (action.type) {
     case ADD_USER_TO_FRIENDS: {
       return {
@@ -55,7 +66,18 @@ export const sideBarReducer = (state = initialState, action) => {
   }
 };
 
-export const addUserAC = (id, name, avatar) => {
+type addUserACType = {
+  type: typeof ADD_USER_TO_FRIENDS;
+  id: number;
+  name: string;
+  avatar: string;
+};
+
+export const addUserAC = (
+  id: number,
+  name: string,
+  avatar: any
+): addUserACType => {
   return {
     type: ADD_USER_TO_FRIENDS,
     id,
@@ -64,7 +86,12 @@ export const addUserAC = (id, name, avatar) => {
   };
 };
 
-export const deleteUserAC = (id) => {
+type deleteUserACType = {
+  type: typeof DELETE_USER_FROM_FRIENDS;
+  id: number;
+};
+
+export const deleteUserAC = (id: number): deleteUserACType => {
   return {
     type: DELETE_USER_FROM_FRIENDS,
     id,
