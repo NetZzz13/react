@@ -1,12 +1,10 @@
 import React from "react";
 import { connect } from "react-redux";
 import {
-  followSuccess,
-  unfollowSuccess,
-  setCurrentPage,
   getUsersThunkCreator,
   followThunkCreator,
   unfollowThunkCreator,
+  ThunkType,
 } from "../../redux/usersReducer";
 import { addUserAC, deleteUserAC } from "../../redux/sideBarReducer";
 import Users from "./Users";
@@ -21,8 +19,39 @@ import {
   getFollowingProgress,
   getUsersSuperSelector,
 } from "../../redux/userSelectors";
+import { UserType } from "../../types/types";
+import { AppStateType } from "../../redux/reduxStore";
 
-export class UsersContainer extends React.Component {
+type MapStatePropsType = {
+  currentPage: number;
+  pageSize: number;
+  totalUsersCount: number;
+  isFetching: boolean;
+  users: Array<UserType>;
+  followingProgress: Array<number>;
+};
+
+type MapDispatchPropsType = {
+  getUsersThunkCreator: (currentPage: number, pageSize: number) => void;
+
+ /*  unfollowThunkCreator: ThunkType;
+  followThunkCreator: ThunkType;
+  addUserAC: () => void;
+  deleteUserAC: () => void; */
+
+  unfollowThunkCreator: any;
+  followThunkCreator: any;
+  addUserAC: any;
+  deleteUserAC: any;
+};
+
+type OwnPropsType = {
+  pageTitle?: string; //Props, переданные через атрибут
+};
+
+type PropsType = MapStatePropsType & MapDispatchPropsType & OwnPropsType;
+
+export class UsersContainer extends React.Component<PropsType> {
   /* constructor(props) {
     super(props);
   } */
@@ -34,7 +63,7 @@ export class UsersContainer extends React.Component {
     );
   }
 
-  onChangePage = (page) => {
+  onChangePage = (page: number) => {
     this.props.getUsersThunkCreator(page, this.props.pageSize);
   };
 
@@ -80,7 +109,9 @@ export class UsersContainer extends React.Component {
   };
 }; */
 
-let mapStateToProps = (state) => {
+//refactor
+
+let mapStateToProps = (state: AppStateType): MapStatePropsType => {
   return {
     users: getUsersSuperSelector(state),
     //users: getUsersSuper(state),
@@ -93,15 +124,16 @@ let mapStateToProps = (state) => {
 };
 
 export default compose(
-  connect(mapStateToProps, {
-    followSuccess,
-    unfollowSuccess,
-    setCurrentPage,
-    getUsersThunkCreator,
-    followThunkCreator,
-    unfollowThunkCreator,
-    addUserAC,
-    deleteUserAC,
-  }) /* ,
-  withAuthRedirect */
+  //TStateProps = {}, TDispatchProps = {}, TOwnProps = {}, State = DefaultRootState
+  connect<MapStatePropsType, MapDispatchPropsType, OwnPropsType, AppStateType>(
+    mapStateToProps,
+    {
+      followThunkCreator,
+      unfollowThunkCreator,
+      getUsersThunkCreator,
+      addUserAC,
+      deleteUserAC,
+    }
+  )
+  /* , withAuthRedirect */
 )(UsersContainer);

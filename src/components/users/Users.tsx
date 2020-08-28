@@ -1,9 +1,25 @@
 import React from "react";
 import s from "./Users.module.scss";
 import Paginator from "../common/Paginator/Paginator";
-import User from "../users/User";
+import User from "./User";
+import { UserType } from "../../types/types";
+import { ThunkType } from "../../redux/usersReducer";
 
-const Users = (props) => {
+type PropsType = {
+  totalUsersCount: number;
+  pageSize: number;
+  portionSize?: number;
+  currentPage: number;
+  onChangePage: (pageNumber: number) => void;
+  users: Array<UserType>;
+  followingProgress: Array<number>
+  unfollowThunkCreator: ThunkType
+  followThunkCreator: ThunkType
+  addUserAC: () => void;
+  deleteUserAC: () => void;
+}
+
+const Users: React.FC<PropsType> = (props) => {
   /* debugger; */
   return (
     <div className={s.usersBlock}>
