@@ -9,8 +9,7 @@
   height: 180px;
 }
 
-
-.userName{
+.userName {
   margin-bottom: 5px;
 }
 
@@ -26,14 +25,10 @@
     height: 100px;
     border-radius: 50%;
     text-align: center;
-
   }
-
 }
 
-
-
-.usersFollowing{
+.usersFollowing {
   button {
     text-align: center;
     height: 30px;
@@ -46,22 +41,7 @@
     font-size: 18px;
     &:hover {
       background-color: #bc79ff;
+      cursor: pointer;
     }
   }
 }
-
-
-/* 
-
-
-.infoBlock {
-  display: flex;
-  border: 1px solid grey;
-  border-radius: 10px;
-  padding: 5px;
-}
-
-.infoMain {
-  margin-right: 50px;
-}
- */

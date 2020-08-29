@@ -85,7 +85,7 @@ export const usersReducer = (
 };
 
 type ActionsTypes =
-  | FollowSuccessActionType
+  FollowSuccessActionType
   | UnfollowSuccessActionType
   | SetUsersActionType
   | setUsersTotalCountActionType
@@ -226,7 +226,7 @@ export const followThunkCreator = (userId: number): ThunkType => {
 };
 
 export const unfollowThunkCreator = (userId: number): ThunkType => {
-  return async (dispatch: any) => {
+  return async (dispatch) => {
     dispatch(toogleFollowingProgress(true, userId));
 
     let data = await usersAPI.unfollow(userId);

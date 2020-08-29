@@ -1,6 +1,8 @@
-import { PostType, ProfileType, PhotosType } from './../types/types';
-import { profileAPI } from "../api/api";
+import { PostType, ProfileType, PhotosType } from "./../types/types";
+import { profileAPI, ResultCodesEnum } from "../api/api";
 import { stopSubmit } from "redux-form";
+import { AppStateType } from "./reduxStore";
+import { ThunkAction } from "redux-thunk";
 
 const ADD_POST = "ADD_POST";
 const DELETE_POST = "DELETE_POST";
@@ -9,7 +11,6 @@ const SET_STATUS = "SET_STATUS";
 const SAVE_PHOTO_SUCCESS = "SAVE_PHOTO_SUCCESS";
 const ADD_LIKE = "ADD_LIKE";
 const DELETE_LIKE = "DELETE_LIKE";
-
 
 const initialState = {
   postsData: [
@@ -35,7 +36,7 @@ export type InitialStateType = typeof initialState;
 
 const profileReducer = (
   state = initialState,
-  action: any
+  action: ActionsTypes
 ): InitialStateType => {
   switch (action.type) {
     case ADD_POST: {
@@ -102,6 +103,15 @@ const profileReducer = (
       return state;
   }
 };
+
+type ActionsTypes =
+  AddPostActionCreatorActionType
+  | DeletePostActionCreatorActionType
+  | AddLikeActionCreatorActionType
+  | DeleteLikeActionCreatorActionType
+  | SetUsersProfileCreatorActionType
+  | SetUserStatusCreatorActionType
+  | SavePhotoSuccessCreatorActionType;
 
 type AddPostActionCreatorActionType = {
   type: typeof ADD_POST;
@@ -201,50 +211,56 @@ export const savePhotoSuccess = (
   };
 };
 
-export const getProfileThunkCreator = (userId: number) => {
-  return (dispatch: any) => {
-    profileAPI.getProfile(userId).then((response: any) => {
-      dispatch(setUsersProfile(response.data));
-    });
+//ThunkAction - специальный тип для thunk
+//<Promise<void> - любая async возвращает Promise; AppStateType - глобальный state , unknown - ExtraArguments, Action<string> - наши ActionsTypes>
+
+type ThunkType = ThunkAction<
+  Promise<void>,
+  AppStateType,
+  unknown,
+  ActionsTypes
+>;
+
+export const getProfileThunkCreator = (userId: number): ThunkType => {
+  return async (dispatch) => {
+    let data = await profileAPI.getProfile(userId);
+    dispatch(setUsersProfile(data.data));
   };
 };
 
-export const getStatusThunkCreator = (userId: number) => {
-  return (dispatch: any) => {
-    profileAPI.getStatus(userId).then((response: any) => {
-      dispatch(setUserStatus(response.data));
-    });
+export const getStatusThunkCreator = (userId: number): ThunkType => {
+  return async (dispatch) => {
+    let data = await profileAPI.getStatus(userId);
+    dispatch(setUserStatus(data.data));
   };
 };
 
-export const updateStatusThunkCreator = (status: any) => {
-  return (dispatch: any) => {
-    profileAPI.updateStatus(status).then((response: any) => {
-      if (response.data.resultCode === 0) {
-        dispatch(setUserStatus(status));
-      }
-    });
+export const updateStatusThunkCreator = (status: string): ThunkType => {
+  return async (dispatch) => {
+    let data = await profileAPI.updateStatus(status);
+    if (data.data.resultCode === 0) {
+      dispatch(setUserStatus(status));
+    }
   };
 };
 
-export const savePhotoTC = (file: any) => {
-  return (dispatch: any) => {
-    profileAPI.savePhoto(file).then((response: any) => {
-      if (response.data.resultCode === 0) {
-        dispatch(savePhotoSuccess(response.data.data.photos));
-      }
-    });
+export const savePhotoTC = (file: any): ThunkType => {
+  return async (dispatch) => {
+    let data = await profileAPI.savePhoto(file);
+    if (data.data.resultCode === ResultCodesEnum.Success) {
+      dispatch(savePhotoSuccess(data.data.data.photos));
+    }
   };
 };
 
-export const saveProfileFormTC = (profile: any) => async (
+export const saveProfileFormTC = (profile: ProfileType) => async (
   dispatch: any,
   getState: any
 ) => {
   const userId = getState().auth.userId;
   const response = await profileAPI.saveProfile(profile);
 
-  if (response.data.resultCode === 0) {
+  if (response.data.resultCode === ResultCodesEnum.Success) {
     //after click on Save button (after ) - show current user with new data
     dispatch(getProfileThunkCreator(userId));
   } else {

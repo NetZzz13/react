@@ -36,7 +36,7 @@ type initialStateType = typeof initialState;
 
 export const sideBarReducer = (
   state = initialState,
-  action: any
+  action: ActionType
 ): initialStateType => {
   switch (action.type) {
     case ADD_USER_TO_FRIENDS: {
@@ -66,7 +66,9 @@ export const sideBarReducer = (
   }
 };
 
-type addUserACType = {
+type ActionType = AddUserACType | DeleteUserACType;
+
+type AddUserACType = {
   type: typeof ADD_USER_TO_FRIENDS;
   id: number;
   name: string;
@@ -77,7 +79,7 @@ export const addUserAC = (
   id: number,
   name: string,
   avatar: any
-): addUserACType => {
+): AddUserACType => {
   return {
     type: ADD_USER_TO_FRIENDS,
     id,
@@ -86,12 +88,12 @@ export const addUserAC = (
   };
 };
 
-type deleteUserACType = {
+type DeleteUserACType = {
   type: typeof DELETE_USER_FROM_FRIENDS;
   id: number;
 };
 
-export const deleteUserAC = (id: number): deleteUserACType => {
+export const deleteUserAC = (id: number): DeleteUserACType => {
   return {
     type: DELETE_USER_FROM_FRIENDS,
     id,
