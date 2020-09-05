@@ -8,9 +8,9 @@ import {
   minLengthCreator,
 } from "../../utils/validators/validator";
 import { connect } from "react-redux";
-import { loginThunkCreator } from "../../redux/authReducer";
+import { loginThunkCreator } from "../../redux/auth-reducer";
 import { Redirect } from "react-router-dom";
-import { AppStateType } from "../../redux/reduxStore";
+import { AppStateType } from "../../redux/redux-store";
 
 type MapStatePropsType = {
   captchaUrl: string | null | undefined;
@@ -118,6 +118,8 @@ export const LoginReduxForm = reduxForm<LoginFormValuesType, LoginFormOwnProps>(
     form: "login",
   }
 )(LoginForm);
+
+
 
 const mapStateToProps = (state: AppStateType): MapStatePropsType => ({
   isAuth: state.auth.isAuth,

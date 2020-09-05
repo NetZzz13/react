@@ -7,8 +7,7 @@ type PropsType = {
   portionSize: number;
   currentPage: number;
   onChangePage: (pageNumber: number) => void;
-
-}
+};
 
 const Paginator: React.FC<PropsType> = (props) => {
   let pagesCount = Math.ceil(props.totalUsersCount / props.pageSize);
@@ -23,11 +22,12 @@ const Paginator: React.FC<PropsType> = (props) => {
 
   let leftPortionPageNumber = (portionNumber - 1) * props.portionSize + 1;
   let rightPortionPageNumber = portionNumber * props.portionSize;
- 
+
   return (
     <div className={s.paginator}>
       {portionNumber > 1 && (
-        <button className={s.prevButton}
+        <button
+          className={s.prevButton}
           onClick={() => {
             setPortionNumber(portionNumber - 1);
           }}

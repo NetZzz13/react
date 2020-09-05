@@ -4,9 +4,8 @@ import {
   getUsersThunkCreator,
   followThunkCreator,
   unfollowThunkCreator,
-  ThunkType,
-} from "../../redux/usersReducer";
-import { addUserAC, deleteUserAC } from "../../redux/sideBarReducer";
+} from "../../redux/users-reducer";
+import {actions} from "../../redux/sideBar-reducer";
 import Users from "./Users";
 import Preloader from "../common/Preloader";
 // import { withAuthRedirect } from "../hoc/WithAuthRedirect";
@@ -18,9 +17,9 @@ import {
   getIsFetching,
   getFollowingProgress,
   getUsersSuperSelector,
-} from "../../redux/userSelectors";
+} from "../../redux/user-selectors";
 import { UserType } from "../../types/types";
-import { AppStateType } from "../../redux/reduxStore";
+import { AppStateType} from "../../redux/redux-store";
 
 type MapStatePropsType = {
   currentPage: number;
@@ -33,16 +32,10 @@ type MapStatePropsType = {
 
 type MapDispatchPropsType = {
   getUsersThunkCreator: (currentPage: number, pageSize: number) => void;
-
- /*  unfollowThunkCreator: ThunkType;
-  followThunkCreator: ThunkType;
-  addUserAC: () => void;
-  deleteUserAC: () => void; */
-
-  unfollowThunkCreator: any;
-  followThunkCreator: any;
-  addUserAC: any;
-  deleteUserAC: any;
+  unfollowThunkCreator: (id: number) => void;
+  followThunkCreator: (id: number) => void;
+  addUserAC: (id: number, name: string, photos: any) => void;
+  deleteUserAC: (id: number) => void;
 };
 
 type OwnPropsType = {
@@ -52,9 +45,6 @@ type OwnPropsType = {
 type PropsType = MapStatePropsType & MapDispatchPropsType & OwnPropsType;
 
 export class UsersContainer extends React.Component<PropsType> {
-  /* constructor(props) {
-    super(props);
-  } */
 
   componentDidMount() {
     this.props.getUsersThunkCreator(
@@ -123,6 +113,7 @@ let mapStateToProps = (state: AppStateType): MapStatePropsType => {
   };
 };
 
+
 export default compose(
   //TStateProps = {}, TDispatchProps = {}, TOwnProps = {}, State = DefaultRootState
   connect<MapStatePropsType, MapDispatchPropsType, OwnPropsType, AppStateType>(
@@ -131,8 +122,8 @@ export default compose(
       followThunkCreator,
       unfollowThunkCreator,
       getUsersThunkCreator,
-      addUserAC,
-      deleteUserAC,
+      addUserAC: actions.addUserAC,
+      deleteUserAC: actions.deleteUserAC,
     }
   )
   /* , withAuthRedirect */

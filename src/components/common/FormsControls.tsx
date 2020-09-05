@@ -1,19 +1,21 @@
 import React from "react";
 import s from "./FormsControls.module.scss";
-import { WrappedFieldMetaProps, WrappedFieldInputProps, WrappedFieldProps } from "redux-form";
+import { WrappedFieldProps } from "redux-form";
 
 /* type FormsControlType = {
   meta: WrappedFieldMetaProps;
   input: WrappedFieldInputProps
  } */
 
-
-
-export const Textarea: React.FC<WrappedFieldProps> = ({ input, meta, ...props }) => {
+export const Textarea: React.FC<WrappedFieldProps> = ({
+  input,
+  meta,
+  ...props
+}) => {
   const hasError = meta.touched && meta.error;
-  
+
   return (
-    <div className={s.formControl + " " + (hasError ? s.error : '')}>
+    <div className={s.formControl + " " + (hasError ? s.error : "")}>
       <div>
         <textarea {...input} {...props} />
       </div>
@@ -22,12 +24,15 @@ export const Textarea: React.FC<WrappedFieldProps> = ({ input, meta, ...props })
   );
 };
 
-
-export const Input: React.FC<WrappedFieldProps> = ({ input, meta, ...props }) => {
+export const Input: React.FC<WrappedFieldProps> = ({
+  input,
+  meta,
+  ...props
+}) => {
   const hasError = meta.touched && meta.error;
 
   return (
-    <div className={s.formControl + " " + (hasError ? s.error : '')}>
+    <div className={s.formControl + " " + (hasError ? s.error : "")}>
       <div>
         <input {...input} {...props} />
       </div>

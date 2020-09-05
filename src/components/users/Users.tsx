@@ -3,23 +3,25 @@ import s from "./Users.module.scss";
 import Paginator from "../common/Paginator/Paginator";
 import User from "./User";
 import { UserType } from "../../types/types";
-import { ThunkType } from "../../redux/usersReducer";
 
-type PropsType = {
+type MapPropsType = {
   totalUsersCount: number;
   pageSize: number;
   portionSize?: number;
   currentPage: number;
-  onChangePage: (pageNumber: number) => void;
   users: Array<UserType>;
   followingProgress: Array<number>
-  unfollowThunkCreator: ThunkType
-  followThunkCreator: ThunkType
-  addUserAC: () => void;
-  deleteUserAC: () => void;
 }
 
-const Users: React.FC<PropsType> = (props) => {
+type MapDispatchType = {
+  onChangePage: (pageNumber: number) => void;
+  unfollowThunkCreator: (id: number) => void;
+  followThunkCreator: (id: number) => void;
+  addUserAC: (id: number, name: string, photos: any) => void;
+  deleteUserAC: (id: number) => void;
+}
+
+const Users: React.FC<MapPropsType & MapDispatchType> = (props) => {
   /* debugger; */
   return (
     <div className={s.usersBlock}>
