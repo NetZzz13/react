@@ -2,7 +2,7 @@ import React from "react";
 import s from "./Users.module.scss";
 import Paginator from "../common/Paginator/Paginator";
 import User from "./User";
-import { UserType } from "../../types/types";
+import { UserType, PhotosType } from "../../types/types";
 
 type MapPropsType = {
   totalUsersCount: number;

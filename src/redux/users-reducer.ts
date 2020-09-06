@@ -13,7 +13,7 @@ const initialState = {
   followingProgress: [] as Array<number>, // array of users id
 };
 
-type initialStateType = typeof initialState;
+export type initialStateType = typeof initialState;
 
 export const usersReducer = (
   state = initialState,

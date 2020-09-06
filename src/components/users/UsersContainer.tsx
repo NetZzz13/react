@@ -18,7 +18,7 @@ import {
   getFollowingProgress,
   getUsersSuperSelector,
 } from "../../redux/user-selectors";
-import { UserType } from "../../types/types";
+import { UserType, PhotosType } from "../../types/types";
 import { AppStateType} from "../../redux/redux-store";
 
 type MapStatePropsType = {

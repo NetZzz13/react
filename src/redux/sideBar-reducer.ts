@@ -70,7 +70,7 @@ type ActionsTypes = InferActionsTypes<typeof actions>;
 //для типизации объединяю все action в объект, а возвращаемые значения типизирую как const
 
 export const actions = {
-  addUserAC: (id: number, name: string, avatar: any) => {
+  addUserAC: (id: number, name: string, avatar: string) => {
     return {
       type: 'ADD_USER_TO_FRIENDS',
       id,
