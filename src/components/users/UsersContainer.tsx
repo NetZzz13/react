@@ -4,8 +4,9 @@ import {
   getUsersThunkCreator,
   followThunkCreator,
   unfollowThunkCreator,
+  FilterType,
 } from "../../redux/users-reducer";
-import {actions} from "../../redux/sideBar-reducer";
+import { actions } from "../../redux/sideBar-reducer";
 import Users from "./Users";
 import Preloader from "../common/Preloader";
 // import { withAuthRedirect } from "../hoc/WithAuthRedirect";
@@ -17,9 +18,10 @@ import {
   getIsFetching,
   getFollowingProgress,
   getUsersSuperSelector,
+  getUsersFilter,
 } from "../../redux/user-selectors";
 import { UserType, PhotosType } from "../../types/types";
-import { AppStateType} from "../../redux/redux-store";
+import { AppStateType } from "../../redux/redux-store";
 
 type MapStatePropsType = {
   currentPage: number;
@@ -28,10 +30,15 @@ type MapStatePropsType = {
   isFetching: boolean;
   users: Array<UserType>;
   followingProgress: Array<number>;
+  filter: FilterType;
 };
 
 type MapDispatchPropsType = {
-  getUsersThunkCreator: (currentPage: number, pageSize: number) => void;
+  getUsersThunkCreator: (
+    currentPage: number,
+    pageSize: number,
+    filter: FilterType
+  ) => void;
   unfollowThunkCreator: (id: number) => void;
   followThunkCreator: (id: number) => void;
   addUserAC: (id: number, name: string, photos: any) => void;
@@ -45,16 +52,24 @@ type OwnPropsType = {
 type PropsType = MapStatePropsType & MapDispatchPropsType & OwnPropsType;
 
 export class UsersContainer extends React.Component<PropsType> {
-
   componentDidMount() {
     this.props.getUsersThunkCreator(
       this.props.currentPage,
-      this.props.pageSize
+      this.props.pageSize,
+      this.props.filter
     );
   }
 
   onChangePage = (page: number) => {
-    this.props.getUsersThunkCreator(page, this.props.pageSize);
+    this.props.getUsersThunkCreator(
+      page,
+      this.props.pageSize,
+      this.props.filter
+    );
+  };
+
+  onFilterChanged = (filter: FilterType) => {
+    this.props.getUsersThunkCreator(1, this.props.pageSize, filter);
   };
 
   render() {
@@ -82,6 +97,7 @@ export class UsersContainer extends React.Component<PropsType> {
           unfollowThunkCreator={this.props.unfollowThunkCreator}
           addUserAC={this.props.addUserAC}
           deleteUserAC={this.props.deleteUserAC}
+          onFilterChanged={this.onFilterChanged}
         />
       </>
     );
@@ -110,9 +126,9 @@ let mapStateToProps = (state: AppStateType): MapStatePropsType => {
     currentPage: getCurrentPage(state),
     isFetching: getIsFetching(state),
     followingProgress: getFollowingProgress(state),
+    filter: getUsersFilter(state),
   };
 };
-
 
 export default compose(
   //TStateProps = {}, TDispatchProps = {}, TOwnProps = {}, State = DefaultRootState

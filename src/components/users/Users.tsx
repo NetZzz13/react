@@ -3,6 +3,8 @@ import s from "./Users.module.scss";
 import Paginator from "../common/Paginator/Paginator";
 import User from "./User";
 import { UserType, PhotosType } from "../../types/types";
+import UsersSearchForm from "./UsersSearchForm";
+import { FilterType } from "../../redux/users-reducer";
 
 type MapPropsType = {
   totalUsersCount: number;
@@ -10,8 +12,8 @@ type MapPropsType = {
   portionSize?: number;
   currentPage: number;
   users: Array<UserType>;
-  followingProgress: Array<number>
-}
+  followingProgress: Array<number>;
+};
 
 type MapDispatchType = {
   onChangePage: (pageNumber: number) => void;
@@ -19,12 +21,14 @@ type MapDispatchType = {
   followThunkCreator: (id: number) => void;
   addUserAC: (id: number, name: string, photos: any) => void;
   deleteUserAC: (id: number) => void;
-}
+  onFilterChanged: (filter: FilterType) => void
+};
 
 const Users: React.FC<MapPropsType & MapDispatchType> = (props) => {
   /* debugger; */
   return (
     <div className={s.usersBlock}>
+      <UsersSearchForm  onFilterChanged= {props.onFilterChanged} />
       <Paginator
         currentPage={props.currentPage}
         onChangePage={props.onChangePage}
@@ -42,6 +46,8 @@ const Users: React.FC<MapPropsType & MapDispatchType> = (props) => {
             followThunkCreator={props.followThunkCreator}
             addUserAC={props.addUserAC}
             deleteUserAC={props.deleteUserAC}
+            
+         
           />
         ))}
       </div>

@@ -1,4 +1,3 @@
-
 import { InferActionsTypes, ThunkType } from "./redux-store";
 import { UserType } from "../types/types";
 import { usersAPI } from "../api/users-api";
@@ -11,9 +10,14 @@ const initialState = {
   currentPage: 1,
   isFetching: false,
   followingProgress: [] as Array<number>, // array of users id
+  filter: {
+    term: "",
+    friend: null as null | boolean,
+  },
 };
 
 export type initialStateType = typeof initialState;
+export type FilterType = typeof initialState.filter;
 
 export const usersReducer = (
   state = initialState,
@@ -53,15 +57,15 @@ export const usersReducer = (
     case "SET_USERS_TOTAL_COUNT": {
       return { ...state, totalUsersCount: action.totalUsersCount };
     }
-
+    case "SET_FILTER": {
+      return { ...state, filter: action.payload };
+    }
     case "SET_CURRENT_PAGE": {
       return { ...state, currentPage: action.currentPage };
     }
-
     case "TOOGLE_IS_FETCHING": {
       return { ...state, isFetching: action.isFetching };
     }
-
     case "TOOGLE_FOLLOWING_PROGRESS": {
       return {
         ...state,
@@ -116,6 +120,13 @@ export const actions = {
     } as const;
   },
 
+  setFilter: (filter: FilterType) => {
+    return {
+      type: "SET_FILTER",
+      payload: filter,
+    } as const;
+  },
+
   toogleIsFetching: (isFetching: boolean) => {
     return {
       type: "TOOGLE_IS_FETCHING",
@@ -132,16 +143,21 @@ export const actions = {
   },
 };
 
-
-
 export const getUsersThunkCreator = (
   currentPage: number,
-  pageSize: number
+  pageSize: number,
+  filter: FilterType
 ): ThunkType<ActionsTypes> => {
   return async (dispatch) => {
     dispatch(actions.toogleIsFetching(true));
+    dispatch(actions.setFilter(filter));
 
-    let data = await usersAPI.getUsers(currentPage, pageSize);
+    let data = await usersAPI.getUsers(
+      currentPage,
+      pageSize,
+      filter.term,
+      filter.friend
+    );
     dispatch(actions.setCurrentPage(currentPage));
     dispatch(actions.toogleIsFetching(false));
     dispatch(actions.setUsers(data.items));
@@ -149,7 +165,7 @@ export const getUsersThunkCreator = (
   };
 };
 
-export const followThunkCreator = (userId: number): ThunkType<ActionsTypes>  => {
+export const followThunkCreator = (userId: number): ThunkType<ActionsTypes> => {
   return async (dispatch) => {
     dispatch(actions.toogleFollowingProgress(true, userId));
 
@@ -161,7 +177,9 @@ export const followThunkCreator = (userId: number): ThunkType<ActionsTypes>  => 
   };
 };
 
-export const unfollowThunkCreator = (userId: number): ThunkType<ActionsTypes>  => {
+export const unfollowThunkCreator = (
+  userId: number
+): ThunkType<ActionsTypes> => {
   return async (dispatch) => {
     dispatch(actions.toogleFollowingProgress(true, userId));
 

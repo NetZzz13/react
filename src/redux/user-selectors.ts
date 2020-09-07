@@ -1,6 +1,7 @@
 import { createSelector } from "reselect";
 import { AppStateType } from "./redux-store";
 
+//селектор - функция, которая принимает весь state и достаёт из него часть.
 export const getUsers = (state: AppStateType) => {
   return state.usersPage.users;
 };
@@ -27,4 +28,8 @@ export const getIsFetching = (state: AppStateType) => {
 
 export const getFollowingProgress = (state: AppStateType) => {
   return state.usersPage.followingProgress;
+};
+
+export const getUsersFilter = (state: AppStateType) => {
+  return state.usersPage.filter;
 };
