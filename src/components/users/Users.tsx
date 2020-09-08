@@ -1,58 +1,99 @@
-import React from "react";
+import React, { useEffect } from "react";
 import s from "./Users.module.scss";
 import Paginator from "../common/Paginator/Paginator";
 import User from "./User";
 import { UserType, PhotosType } from "../../types/types";
 import UsersSearchForm from "./UsersSearchForm";
-import { FilterType } from "../../redux/users-reducer";
+import {
+  FilterType,
+  getUsersThunkCreator,
+  followThunkCreator,
+  unfollowThunkCreator,
+} from "../../redux/users-reducer";
+import { useSelector, useDispatch } from "react-redux";
+import {
+  getTotalUsersCount,
+  getCurrentPage,
+  getPageSize,
+  getUsersFilter,
+  getUsers,
+  getFollowingProgress,
+} from "../../redux/user-selectors";
+import { actions } from "../../redux/sideBar-reducer";
 
-type MapPropsType = {
-  totalUsersCount: number;
-  pageSize: number;
+type PropsType = {
   portionSize?: number;
-  currentPage: number;
-  users: Array<UserType>;
-  followingProgress: Array<number>;
 };
 
-type MapDispatchType = {
-  onChangePage: (pageNumber: number) => void;
-  unfollowThunkCreator: (id: number) => void;
-  followThunkCreator: (id: number) => void;
-  addUserAC: (id: number, name: string, photos: any) => void;
-  deleteUserAC: (id: number) => void;
-  onFilterChanged: (filter: FilterType) => void
-};
+export const Users: React.FC<PropsType> = (props) => {
+  //useSelector() - хук, принимающий в себя в селектор (селектор - принимает весь state и возвращает его часть)
+  const totalUsersCount = useSelector(getTotalUsersCount);
+  const currentPage = useSelector(getCurrentPage);
+  const pageSize = useSelector(getPageSize);
+  const filter = useSelector(getUsersFilter);
+  const users = useSelector(getUsers);
+  const followingProgress = useSelector(getFollowingProgress);
 
-const Users: React.FC<MapPropsType & MapDispatchType> = (props) => {
-  /* debugger; */
+  //useDispatch() - хук, принимающий в себя action или thunk
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(getUsersThunkCreator(currentPage, pageSize, filter));
+  }, []);
+
+  const onChangePage = (pageNumber: number) => {
+    dispatch(
+      getUsersThunkCreator(
+        pageNumber,
+        pageSize,
+        filter //пример замыкания, т.е. filter может быть взят из параметров функции, если его там нет - выше, т.е. выпрыгивает в область видимости вышестоящей
+      )
+    );
+  };
+
+  const onFilterChanged = (filter: FilterType) => {
+    dispatch(getUsersThunkCreator(1, pageSize, filter));
+  };
+
+  const follow = (id: number) => {
+    dispatch(followThunkCreator(id));
+  };
+
+  const unfollow = (id: number) => {
+    dispatch(unfollowThunkCreator(id));
+  };
+
+  const addUser = (id: number, name: string, photos: any) => {
+    dispatch(actions.addUserAC(id, name, photos));
+  };
+
+  const deleteUser = (id: number) => {
+    dispatch(actions.deleteUserAC(id));
+  };
+
   return (
     <div className={s.usersBlock}>
-      <UsersSearchForm  onFilterChanged= {props.onFilterChanged} />
+      <UsersSearchForm onFilterChanged={onFilterChanged} />
       <Paginator
-        currentPage={props.currentPage}
-        onChangePage={props.onChangePage}
-        totalUsersCount={props.totalUsersCount}
-        pageSize={props.pageSize}
+        totalUsersCount={totalUsersCount}
+        currentPage={currentPage}
+        pageSize={pageSize}
+        onChangePage={onChangePage}
         portionSize={10}
       />
       <div className={s.users}>
-        {props.users.map((u) => (
+        {users.map((u) => (
           <User
             user={u}
             key={u.id}
-            followingProgress={props.followingProgress}
-            unfollowThunkCreator={props.unfollowThunkCreator}
-            followThunkCreator={props.followThunkCreator}
-            addUserAC={props.addUserAC}
-            deleteUserAC={props.deleteUserAC}
-            
-         
+            followingProgress={followingProgress}
+            unfollowThunkCreator={unfollow}
+            followThunkCreator={follow}
+            addUserAC={addUser}
+            deleteUserAC={deleteUser}
           />
         ))}
       </div>
     </div>
   );
 };
-
-export default Users;

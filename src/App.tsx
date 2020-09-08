@@ -3,10 +3,10 @@ import "./App.css";
 import Navbar from "./components/navbar/Navbar";
 import { Route, withRouter, Redirect, Switch } from "react-router-dom";
 import DialogsContainer from "./components/dialogs/DialogsContainer";
-import UsersContainer from "./components/users/UsersContainer";
+import { UsersPage } from "./components/users/UsersPage";
 import ProfileContainer from "./components/profile/ProfileContainer";
 import HeaderContainer from "./components/header/HeaderContainer";
-import Login from "./components/login/Login";
+import { LoginPage } from "./components/login/LoginPage";
 import { initializeApp } from "./redux/app-reducer";
 import { connect } from "react-redux";
 import { compose } from "redux";
@@ -14,13 +14,11 @@ import Preloader from "./components/common/Preloader";
 import store, { AppStateType } from "./redux/redux-store";
 import { BrowserRouter } from "react-router-dom";
 import { Provider } from "react-redux";
-import { FriendType } from "./redux/sideBar-reducer";
 
 // type MapPropsType = ReturnType<typeof mapStateToProps>;
 
 type MapPropsType = {
   initialized: boolean;
-  
 };
 
 type DispatchPropsType = {
@@ -31,7 +29,7 @@ type DispatchPropsType = {
   friendsData: Array<FriendType>
 }; */
 
-class App extends React.Component<MapPropsType & DispatchPropsType>  {
+class App extends React.Component<MapPropsType & DispatchPropsType> {
   /* constructor(props) {
     super(props);
   } */
@@ -70,8 +68,8 @@ class App extends React.Component<MapPropsType & DispatchPropsType>  {
               path="/profile/:userId?"
               render={() => <ProfileContainer />}
             />
-            <Route path="/users" render={() => <UsersContainer />} />
-            <Route path="/login" render={() => <Login />} />
+            <Route path="/users" render={() => <UsersPage />} />
+            <Route path="/login" render={() => <LoginPage />} />
             <Route path="*" render={() => <div>404 not found</div>} />
           </Switch>
         </div>

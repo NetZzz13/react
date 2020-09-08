@@ -7,24 +7,10 @@ import {
   maxLengthCreator,
   minLengthCreator,
 } from "../../utils/validators/validator";
-import { connect } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { loginThunkCreator } from "../../redux/auth-reducer";
 import { Redirect } from "react-router-dom";
 import { AppStateType } from "../../redux/redux-store";
-
-type MapStatePropsType = {
-  captchaUrl: string | null | undefined;
-  isAuth: boolean;
-};
-
-type MapDispatchPropsType = {
-  loginThunkCreator: (
-    email: string,
-    password: string,
-    rememderMe: boolean,
-    captcha: string
-  ) => void;
-};
 
 type LoginFormValuesType = {
   email: string;
@@ -37,24 +23,32 @@ type LoginFormOwnProps = {
   captchaUrl: string | null | undefined;
 };
 
-const Login: React.FC<MapStatePropsType & MapDispatchPropsType> = (props) => {
+export const LoginPage: React.FC = () => {
+  const isAuth = useSelector((state: AppStateType) => state.auth.isAuth);
+  const captchaUrl = useSelector(
+    (state: AppStateType) => state.auth.captchaUrl
+  );
+  const dispatch = useDispatch();
+
   const onSubmit = (formData: LoginFormValuesType) => {
-    props.loginThunkCreator(
-      formData.email,
-      formData.password,
-      formData.rememberMe,
-      formData.captcha
+    dispatch(
+      loginThunkCreator(
+        formData.email,
+        formData.password,
+        formData.rememberMe,
+        formData.captcha
+      )
     );
-    /* console.log(formData); */
+    // console.log(formData);
   };
 
-  if (props.isAuth) {
+  if (isAuth) {
     return <Redirect to={"/profile"} />;
   }
 
   return (
     <div className={s.loginBlock}>
-      <LoginReduxForm onSubmit={onSubmit} captchaUrl={props.captchaUrl} />
+      <LoginReduxForm onSubmit={onSubmit} captchaUrl={captchaUrl} />
     </div>
   );
 };
@@ -118,12 +112,3 @@ export const LoginReduxForm = reduxForm<LoginFormValuesType, LoginFormOwnProps>(
     form: "login",
   }
 )(LoginForm);
-
-
-
-const mapStateToProps = (state: AppStateType): MapStatePropsType => ({
-  isAuth: state.auth.isAuth,
-  captchaUrl: state.auth.captchaUrl,
-});
-
-export default connect(mapStateToProps, { loginThunkCreator })(Login);
