@@ -20,6 +20,8 @@ import {
   getFollowingProgress,
 } from "../../redux/user-selectors";
 import { actions } from "../../redux/sideBar-reducer";
+import { useHistory } from "react-router-dom";
+import * as queryString from "querystring";
 
 type PropsType = {
   portionSize?: number;
@@ -34,12 +36,55 @@ export const Users: React.FC<PropsType> = (props) => {
   const users = useSelector(getUsers);
   const followingProgress = useSelector(getFollowingProgress);
 
+  //для синхронизации url
+  const history = useHistory();
+
   //useDispatch() - хук, принимающий в себя action или thunk
   const dispatch = useDispatch();
 
+  //при вводе url заполнять фильтры
   useEffect(() => {
-    dispatch(getUsersThunkCreator(currentPage, pageSize, filter));
+   
+    const parsed = queryString.parse(history.location.search.substr(1)) as {
+      term: string;
+      page: string;
+      friend: string;
+    };
+    debugger;
+    let actualPage = currentPage;
+    let actualFilter = filter;
+
+    if (!!parsed.page) actualPage = +parsed.page;
+    if (!!parsed.term)
+      actualFilter = { ...actualFilter, term: parsed.term as string };
+    if (!!parsed.friend)
+      actualFilter = {
+        ...actualFilter,
+        friend:
+          parsed.friend === "null"
+            ? null
+            : parsed.friend === "true"
+            ? true
+            : false,
+      };
+
+    dispatch(getUsersThunkCreator(actualPage, pageSize, actualFilter));
   }, []);
+
+  //при вводе фильтров и запроса заполнять url
+  useEffect(() => {
+    //обрезаем term и friend в urle, если их нет
+    const query: any = {};
+    if (!!filter.term) query.term = filter.term;
+    if (filter.friend !== null) query.friend = String(filter.friend);
+    if (currentPage !== 1) query.page = String(currentPage);
+
+    history.push({
+      pathname: "/users",
+      /* search: `?term=${filter.term}&friend=${filter.friend}&page=${currentPage}`, */
+      search: queryString.stringify(query), // автогенерирование строки
+    });
+  }, [filter, currentPage]);
 
   const onChangePage = (pageNumber: number) => {
     dispatch(

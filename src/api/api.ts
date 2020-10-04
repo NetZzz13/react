@@ -9,7 +9,6 @@ export const instance = axios.create({
   },
 });
 
-// enum - перечисление;
 // enum-перечисление для resultCode позволяет удобно его интерпретировать при написании кода
 
 export enum ResultCodesEnum {
