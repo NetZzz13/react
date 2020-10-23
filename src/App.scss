@@ -1,0 +1,21 @@
+@import "./components/variables";
+
+.app {
+  font-family: "Poppins", sans-serif;
+  font-size: 18px;
+}
+
+.ant-menu-dark.ant-menu-dark:not(.ant-menu-horizontal) .ant-menu-item-selected {
+  background-color: $purple;
+}
+
+.ant-layout {
+  background: #fffcf8;
+  background: -webkit-linear-gradient(top left, #fffcf8, #f3e7ff);
+  background: -moz-linear-gradient(top left, #fffcf8, #f3e7ff);
+  background: linear-gradient(to bottom right, #fffcf8, #f3e7ff);
+}
+
+.ant-layout-footer {
+  background: none;
+}

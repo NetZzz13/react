@@ -10,6 +10,7 @@ import {
   minLengthCreator,
 } from "../../utils/validators/validator";
 import { InitialStateType } from "../../redux/dialogs-reducer";
+import { Button } from "antd";
 
 type OwnPropsType = {
   dialogsPage: InitialStateType;

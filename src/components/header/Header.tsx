@@ -1,39 +1,58 @@
 import React from "react";
 import s from "./Header.module.scss";
 import { NavLink } from "react-router-dom";
-import logo from "../../assets/images/logo.png";
-import { GrLogout } from "react-icons/gr";
+import { Layout } from "antd";
+import Avatar from "antd/lib/avatar/avatar";
+import { useDispatch, useSelector } from "react-redux";
+import { getIsAuth, getLogin } from "../../redux/auth-selectors";
+import { logoutThunkCreator } from "../../redux/auth-reducer";
+import {
+  UserOutlined,
+  LogoutOutlined,
+  ExpandOutlined,
+} from "@ant-design/icons";
 
+export type MapStatePropsType = {};
 
-export type MapStatePropsType = {
-  isAuth: boolean;
-  login: string | null;
-}
+const Header: React.FC<MapStatePropsType> = (props) => {
+  const { Header } = Layout;
 
-export type MapDispatchPropsType = {
-  logoutThunkCreator: () => void
-}
+  const isAuth = useSelector(getIsAuth);
+  const login = useSelector(getLogin);
 
-const Header: React.FC<MapStatePropsType & MapDispatchPropsType>  = (props) => {
+  const dispatch = useDispatch();
+
+  const logout = () => {
+    dispatch(logoutThunkCreator());
+  };
+
   return (
-    <header className={s.header}>
-      <div className={s.headerBlock}>
+    <Header className={s.header}>
+      <div className={s.logo}>
         <NavLink to="/profile">
-          <img src={logo} alt="logo" />
-          <span>socium.</span>
+          <ExpandOutlined />
+          <span>SOCIUM.</span>
         </NavLink>
-        <div className={s.loginBlock}>
-          {props.isAuth ? (
-            <NavLink to="/login">
-              <div className={s.login}>{props.login}</div>
-              <GrLogout onClick={props.logoutThunkCreator}>Logout</GrLogout>
-            </NavLink>
-          ) : (
-            <NavLink to="/login">Login</NavLink>
-          )}
-        </div>
       </div>
-    </header>
+
+      {isAuth ? (
+        <div className={s.loginBlock}>
+          <Avatar
+            style={{ backgroundColor: "#9260ff" }}
+            icon={<UserOutlined />}
+          />
+
+          <span className={s.login}>{login}</span>
+          <NavLink to="/login">
+            <LogoutOutlined onClick={logout} />
+          </NavLink>
+        </div>
+      ) : (
+        <div>
+          <NavLink to="/login">Login</NavLink>
+        </div>
+      )}
+    </Header>
   );
 };
 

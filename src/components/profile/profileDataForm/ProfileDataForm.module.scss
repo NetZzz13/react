@@ -1,3 +1,5 @@
+@import "../../variables";
+
 .profileEditMode {
   display: flex;
   flex-direction: column;
@@ -7,9 +9,6 @@
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
   width: 500px;
   color: black;
-
-
-
 }
 
 .inputsEditForm {
@@ -20,25 +19,33 @@
   width: 50%;
   padding: 0;
   padding-left: 10px;
-  background: #f3eef8;
+  background: $form-background;
   color: black;
   border: none;
   border-radius: 7px;
   transition: 0.2s ease-in-out;
   margin-bottom: 10px;
-  font-family: 'Poppins', sans-serif;
+  font-family: "Poppins", sans-serif;
+  color: #fff;
+  &::placeholder {
+    color: #afbab6;
+  }
 }
 
 .textareaEditForm {
   font-size: 18px;
-  background: #f3eef8;
-  width: 50%;
+  background: $form-background;
+  width: 100%;
   border: none;
   border-radius: 7px;
   padding-left: 10px;
   //outline : none;
   resize: none;
-  font-family: 'Poppins', sans-serif;
+  font-family: "Poppins", sans-serif;
+  color: #fff;
+  &::placeholder {
+    color: #afbab6;
+  }
 }
 
 .contacts {
@@ -50,7 +57,6 @@
     width: 90%;
   }
 }
-
 
 .saveEditMode {
   height: 30px;
@@ -66,8 +72,15 @@
   }
 }
 
-.lookingForAJob{
+.lookingForAJob {
   display: flex;
+}
 
-  
+.status {
+  &:hover {
+    transform: scale(1.03);
+    color: grey;
+    transition: 0.2s ease-in-out;
+    cursor: pointer;
+  }
 }

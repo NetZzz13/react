@@ -35,7 +35,7 @@ const ProfileStatusWithHooks: React.FC<PropsType> = (props) => {
     <div>
       {!editMode &&(
         props.isOwner ?
-        <div onDoubleClick={activateMode}><b>My status:</b> {props.status || "no status"}</div>
+        <div ><b>My status:</b> <span onClick={activateMode} className={s.status}>{props.status || "no status"}</span></div>
         : <div><b>Status:</b> {props.status || "no status"}</div>
       )}
 

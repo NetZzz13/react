@@ -1,40 +1,38 @@
+@import "../../variables";
+
 .postsBlock {
-  display: flex;
-  flex-direction: column;
-  text-align: start;
   padding: 10px;
   border-radius: 20px;
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
-  width: 500px;
-  color: black;
-  .postsTitle{
+  width: 600px;
+  .postsTitle {
     font-weight: 700;
     font-size: 20px;
     margin-bottom: 10px;
+    text-align: center;
   }
 }
 
 .postMessage {
   margin-bottom: 10px;
-  
 }
-
-
 
 .textareaEditForm {
   font-size: 18px;
-  background: #f3eef8;
+  background: $form-background;
   width: 100%;
   border: none;
   border-radius: 7px;
-  //outline : none;
   resize: none;
-  font-family: 'Poppins', sans-serif;
+  font-family: "Poppins", sans-serif;
+  color: $form-text-color;
+  padding: 10px;
+  &::placeholder {
+    color: #afbab6;
+  }
 }
 
-
-
-.buttonPushPost{
+.buttonPushPost {
   height: 30px;
   width: 100px;
   background-color: #8224e3;
@@ -47,7 +45,3 @@
     background-color: #bc79ff;
   }
 }
-
-
-
-

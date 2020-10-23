@@ -1,13 +1,16 @@
 .profileBlock {
   padding: 20px;
-  position: relative;
-  text-align: center;
-
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  max-width: 1000px;
+  align-items: center;
+  width: 100%;
+  margin: 0 auto;
   .profileCover {
     margin: 0 auto;
     max-width: 1300px;
     text-align: center;
-    //position: relative;
     margin-bottom: 130px;
     img {
       display: flex;
@@ -22,38 +25,35 @@
   }
 
   .profileShortInfo {
-    position: absolute;
-    left: 30px;
-    top: 120px;
-   
+    display: flex;
+    flex-direction: column;
+    margin-right: 50px;
+
     .profileAvatar {
       max-width: 100%;
-      padding-left: 10px;
-      display: flex;
-      justify-content: center;
       position: relative;
-
+      display: inline-block;
       img {
         width: 100%;
-        max-width: 230px;
+        max-width: 300px;
         display: block;
         object-fit: cover;
         border-radius: 50%;
-        border: 2px #000 solid;
         box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
         position: relative;
       }
       .changePhoto {
         color: white;
         position: absolute;
-        top: 170px;
-        left: 90px;
-    
+        left: 50%;
+        top: 90%;
+        transform: translate(-50%, -90%);
         text-align: center;
-
+        opacity: 0.3;
         &:hover {
-          transform: scale(1.2);
-          transition: 0.2s ease-in-out;
+          opacity: 1;
+          transition: 0.3s ease-in-out;
+          cursor: pointer;
           label {
             cursor: pointer;
           }
@@ -73,30 +73,19 @@
 
   .nickname {
     text-transform: uppercase;
+    text-align: center;
   }
 
   .status {
     margin-bottom: 15px;
-    &:hover{
-      transform: scale(1.03);
-      color: grey;
-      transition: 0.2s ease-in-out;
-    }
+    text-align: center;
+    max-width: fit-content;
   }
 }
 
-
-.contacts {
-  display: block;
-  margin-left: 20px;
-  .contactLink{
-    color: black;
-    text-decoration: none;
-    &:hover{
-      color: grey;
-      transition: 0.2s ease-in-out;
-    }
-  }
+.infoText {
+  display: flex;
+  word-break: break-all;
 }
 
 input[type="file"] {
@@ -109,8 +98,6 @@ input[type="file"] {
   cursor: pointer;
 }
 
-
-
 .profileAllInfo {
   display: flex;
   flex-direction: column;
@@ -118,11 +105,9 @@ input[type="file"] {
   padding: 10px;
   border-radius: 20px;
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
-  width: 500px;
+  max-width: 500px;
+  max-height: 400px;
 }
-
-
-
 
 .buttonEditProfile {
   height: 30px;
@@ -138,8 +123,26 @@ input[type="file"] {
   }
 }
 
-.profileContent{
+.iconSocial {
+  width: 25px;
+}
+
+.infoTitle {
+  display: grid;
+  grid-template-columns: 170px 310px;
+}
+
+.contact {
+  margin-right: 5px;
+}
+
+.infoContactIcons {
+  width: 90px;
+  flex-wrap: wrap;
+}
+
+.profileMainBlock {
   display: flex;
-  justify-content: space-around;
-  
+  justify-content: center;
+  margin-bottom: 70px;
 }

@@ -50,7 +50,7 @@ export const Users: React.FC<PropsType> = (props) => {
       page: string;
       friend: string;
     };
-    debugger;
+
     let actualPage = currentPage;
     let actualFilter = filter;
 
