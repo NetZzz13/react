@@ -27,6 +27,7 @@ const { Content, Footer, Sider } = Layout;
 
 type MapPropsType = {
   initialized: boolean;
+  isAuth: boolean;
 };
 
 type DispatchPropsType = {
@@ -67,65 +68,86 @@ class App extends React.Component<MapPropsType & DispatchPropsType> {
     const { collapsed } = this.state;
 
     return (
-      <Layout className="app" style={{ minHeight: "100vh" }}>
-        <Header />
+      <>
+        {this.props.isAuth ? (
+          <Layout className="app" style={{ minHeight: "100vh" }}>
+            <Header />
 
-        <Content>
-          <Layout style={{ minHeight: "100vh" }}>
-            <Sider
-              collapsible
-              collapsed={collapsed}
-              onCollapse={this.onCollapse}
-            >
-              <Menu
-                theme="dark"
-                mode="inline"
-                defaultSelectedKeys={["1"]}
-                defaultOpenKeys={["sub1"]}
-              >
-                <SubMenu key="sub1" icon={<UserOutlined />} title="My profile">
-                  <Menu.Item key="1">
-                    <NavLink to="/profile">Profile</NavLink>
-                  </Menu.Item>
-                  <Menu.Item key="2">
-                    <NavLink to="/dialogs">Messages</NavLink>
-                  </Menu.Item>
-                </SubMenu>
-                <Menu.Item
-                  key="3"
-                  icon={<UsergroupAddOutlined />}
-                  title="Users"
+            <Content>
+              <Layout style={{ minHeight: "100vh" }}>
+                <Sider
+                  collapsible
+                  collapsed={collapsed}
+                  onCollapse={this.onCollapse}
                 >
-                  <NavLink to="/users">Users</NavLink>
-                </Menu.Item>
-                <SubMenu key="sub3" icon={<AppstoreOutlined />} title="Other">
-                  <Menu.Item key="5">News</Menu.Item>
-                  <Menu.Item key="6">Music</Menu.Item>
-                  <Menu.Item key="7">Settings</Menu.Item>
-                </SubMenu>
-              </Menu>
-            </Sider>
-            <Content style={{ padding: "24px", minHeight: 280 }}>
-              <Switch>
-                <Route
-                  exact
-                  path="/"
-                  render={() => <Redirect to="/profile" />}
-                />
-                <Route path="/dialogs" render={() => <DialogsContainer />} />
-                <Route
-                  path="/profile/:userId?"
-                  render={() => <ProfileContainer />}
-                />
-                <Route path="/users" render={() => <UsersPage />} />
-                <Route path="/login" render={() => <LoginPage />} />
-                <Route path="*" render={() => <div>404 not found</div>} />
-              </Switch>
-              <Footer style={{ textAlign: "center" }}>NetZ Design ©2020</Footer>
+                  <Menu
+                    theme="dark"
+                    mode="inline"
+                    defaultSelectedKeys={["1"]}
+                    defaultOpenKeys={["sub1"]}
+                  >
+                    <SubMenu
+                      key="sub1"
+                      icon={<UserOutlined />}
+                      title="My profile"
+                    >
+                      <Menu.Item key="1">
+                        <NavLink to="/profile">Profile</NavLink>
+                      </Menu.Item>
+                      <Menu.Item key="2">
+                        <NavLink to="/dialogs">Messages</NavLink>
+                      </Menu.Item>
+                    </SubMenu>
+                    <Menu.Item
+                      key="3"
+                      icon={<UsergroupAddOutlined />}
+                      title="Users"
+                    >
+                      <NavLink to="/users">Users</NavLink>
+                    </Menu.Item>
+                    <SubMenu
+                      key="sub3"
+                      icon={<AppstoreOutlined />}
+                      title="Other"
+                    >
+                      <Menu.Item key="5">News</Menu.Item>
+                      <Menu.Item key="6">Music</Menu.Item>
+                      <Menu.Item key="7">Settings</Menu.Item>
+                    </SubMenu>
+                  </Menu>
+                </Sider>
+                <Content style={{ padding: "24px", minHeight: 280 }}>
+                  <Switch>
+                    <Route
+                      exact
+                      path="/"
+                      render={() => <Redirect to="/profile" />}
+                    />
+                    <Route
+                      path="/dialogs"
+                      render={() => <DialogsContainer />}
+                    />
+                    <Route
+                      path="/profile/:userId?"
+                      render={() => <ProfileContainer />}
+                    />
+                    <Route path="/users" render={() => <UsersPage />} />
+                    <Route path="/login" render={() => <LoginPage />} />
+                    <Route path="*" render={() => <div>404 not found</div>} />
+                  </Switch>
+                  <Footer style={{ textAlign: "center" }}>
+                    NetZ Design ©2020
+                  </Footer>
+                </Content>
+              </Layout>
             </Content>
           </Layout>
-        </Content>
-      </Layout>
+        ) : (
+          <Layout className="loginWrapper" style={{ minHeight: "100vh" }}>
+            <LoginPage />
+          </Layout>
+        )}
+      </>
     );
   }
 }
@@ -133,6 +155,7 @@ class App extends React.Component<MapPropsType & DispatchPropsType> {
 const mapStateToProps = (state: AppStateType) => {
   return {
     initialized: state.app.initialized,
+    isAuth: state.auth.isAuth,
   };
 };
 

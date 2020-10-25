@@ -7,6 +7,9 @@
   align-items: center;
   width: 100%;
   margin: 0 auto;
+  @media screen and (max-width: 1023px) {
+    padding: 0;
+  }
   .profileCover {
     margin: 0 auto;
     max-width: 1300px;
@@ -28,19 +31,24 @@
     display: flex;
     flex-direction: column;
     margin-right: 50px;
-
+    @media screen and (max-width: 1023px) {
+      margin-right: 0;
+    }
     .profileAvatar {
-      max-width: 100%;
+      max-width: 300px;
       position: relative;
       display: inline-block;
+
       img {
-        width: 100%;
-        max-width: 300px;
         display: block;
         object-fit: cover;
         border-radius: 50%;
         box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
         position: relative;
+        width: 100%;
+        @media screen and (max-width: 1023px) {
+          width: 100%;
+        }
       }
       .changePhoto {
         color: white;
@@ -77,9 +85,11 @@
   }
 
   .status {
-    margin-bottom: 15px;
     text-align: center;
     max-width: fit-content;
+    @media screen and (max-width: 1023px) {
+      margin: 20px 0;
+    }
   }
 }
 
@@ -106,7 +116,6 @@ input[type="file"] {
   border-radius: 20px;
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
   max-width: 500px;
-  max-height: 400px;
 }
 
 .buttonEditProfile {
@@ -129,7 +138,7 @@ input[type="file"] {
 
 .infoTitle {
   display: grid;
-  grid-template-columns: 170px 310px;
+  grid-template-columns: 1fr 2fr;
 }
 
 .contact {
@@ -145,4 +154,12 @@ input[type="file"] {
   display: flex;
   justify-content: center;
   margin-bottom: 70px;
+  @media screen and (max-width: 1023px) {
+    flex-direction: column;
+    align-items: center;
+  }
+}
+
+.profileContent {
+  width: 100%;
 }

@@ -3,6 +3,7 @@ import { Formik, Form, Field, ErrorMessage } from "formik";
 import { FilterType } from "../../redux/users-reducer";
 import { useSelector } from "react-redux";
 import { getUsersFilter } from "../../redux/user-selectors";
+import s from "./UsersSearchForm.module.scss";
 
 const usersSearchFormValidate = (values: any) => {
   const errors = {};
@@ -40,10 +41,13 @@ const UsersSearchForm: React.FC<PropsType> = React.memo((props) => {
   };
 
   return (
-    <div>
+    <div className={s.usersSearchForm}>
       <Formik
-      enableReinitialize={true}
-        initialValues={{ term: filter.term, friend: String(filter.friend) as "true" | "false" | "null"}}
+        enableReinitialize={true}
+        initialValues={{
+          term: filter.term,
+          friend: String(filter.friend) as "true" | "false" | "null",
+        }}
         validate={usersSearchFormValidate}
         onSubmit={submit}
       >

@@ -1,16 +1,18 @@
 .user {
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
   text-align: center;
   padding: 10px;
-  width: 160px;
-  height: 180px;
+  width: 220px;
+  height: 220px;
+
 }
 
 .userName {
   margin-bottom: 5px;
+  word-break: break-word;
 }
 
 .userAvatar {
@@ -19,6 +21,7 @@
   align-items: center;
   text-align: center;
   width: 100%;
+  margin-bottom: 5px;
   img {
     object-fit: cover;
     width: 100px;

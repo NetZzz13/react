@@ -1,29 +1,33 @@
-@import '../variables';
-
+@import "../variables";
 
 .dialogs {
   display: grid;
-  grid-template-columns: 5fr 10fr;
+  grid-template-columns: 1fr 2fr;
   grid-template-areas:
-  "di mes"
-  ". ne" 
-  ;
+    "di mes"
+    ". ne";
   padding: 20px;
 
-
-  form{
+  @media screen and (max-width: 1023px) {
+    padding: 0;
+  }
+  form {
     grid-area: ne;
+    max-width: 600px;
   }
   .dialogsItems {
     grid-area: di;
+    align-items: center;
+
     .dialog {
       color: white;
-
+      margin-bottom: 15px;
       img {
         object-fit: cover;
-        width: 30px;
-        height: 30px;
-        border-radius: 15px;
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        margin-right: 10px;
       }
       a {
         color: black;
@@ -37,15 +41,14 @@
   }
   .messages {
     grid-area: di;
-    margin: 0 auto;
+
     .message {
       display: flex;
       border-radius: 20px;
       box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
-      width: 300px;
-
+      max-width: 300px;
       color: black;
-      margin: 0 20px 20px 20px;
+      margin-bottom: 15px;
       padding: 10px;
     }
   }
@@ -55,8 +58,7 @@
   padding: 30px;
 }
 
-
-.buttonPushPost{
+.buttonPushPost {
   height: 30px;
   width: 150px;
   background-color: #8224e3;
@@ -67,6 +69,7 @@
   font-size: 18px;
   &:hover {
     background-color: #bc79ff;
+    cursor: pointer;
   }
 }
 
@@ -80,5 +83,5 @@
   padding: 10px;
   //outline : none;
   resize: none;
-  font-family: 'Poppins', sans-serif;
+  font-family: "Poppins", sans-serif;
 }

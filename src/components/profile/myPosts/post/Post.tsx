@@ -38,7 +38,6 @@ const Post: React.FC<MapStatePropsType & MapDispatchPropsType> = (props) => {
   return (
     <div className={s.item}>
       <div className={s.itemDelete}>
-        {" "}
         <AiFillCloseSquare onClick={onDeletePost} />
       </div>
       <img

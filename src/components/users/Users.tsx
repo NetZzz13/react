@@ -2,7 +2,6 @@ import React, { useEffect } from "react";
 import s from "./Users.module.scss";
 import Paginator from "../common/Paginator/Paginator";
 import User from "./User";
-import { UserType, PhotosType } from "../../types/types";
 import UsersSearchForm from "./UsersSearchForm";
 import {
   FilterType,
@@ -22,6 +21,7 @@ import {
 import { actions } from "../../redux/sideBar-reducer";
 import { useHistory } from "react-router-dom";
 import * as queryString from "querystring";
+import { Pagination } from "antd";
 
 type PropsType = {
   portionSize?: number;
@@ -44,7 +44,6 @@ export const Users: React.FC<PropsType> = (props) => {
 
   //при вводе url заполнять фильтры
   useEffect(() => {
-   
     const parsed = queryString.parse(history.location.search.substr(1)) as {
       term: string;
       page: string;
@@ -119,13 +118,20 @@ export const Users: React.FC<PropsType> = (props) => {
   return (
     <div className={s.usersBlock}>
       <UsersSearchForm onFilterChanged={onFilterChanged} />
-      <Paginator
+      <Pagination
+        defaultCurrent={1}
+        total={totalUsersCount}
+        onChange={onChangePage}
+        defaultPageSize={pageSize}
+        showSizeChanger={false}
+      /> 
+      {/* <Paginator
         totalUsersCount={totalUsersCount}
         currentPage={currentPage}
         pageSize={pageSize}
         onChangePage={onChangePage}
         portionSize={10}
-      />
+      /> */}
       <div className={s.users}>
         {users.map((u) => (
           <User

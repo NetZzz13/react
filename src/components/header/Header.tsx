@@ -11,6 +11,7 @@ import {
   LogoutOutlined,
   ExpandOutlined,
 } from "@ant-design/icons";
+import { getAvatar } from "../../redux/profile-selectors";
 
 export type MapStatePropsType = {};
 
@@ -19,6 +20,7 @@ const Header: React.FC<MapStatePropsType> = (props) => {
 
   const isAuth = useSelector(getIsAuth);
   const login = useSelector(getLogin);
+  const avatar = useSelector(getAvatar);
 
   const dispatch = useDispatch();
 
@@ -40,6 +42,7 @@ const Header: React.FC<MapStatePropsType> = (props) => {
           <Avatar
             style={{ backgroundColor: "#9260ff" }}
             icon={<UserOutlined />}
+           /*  src={avatar} */
           />
 
           <span className={s.login}>{login}</span>

@@ -1,0 +1,44 @@
+@import "../variables";
+
+.usersSearchForm {
+  margin-bottom: 10px;
+  form {
+    display: flex;
+    input {
+      margin-right: 5px;
+    }
+    @media screen and (max-width: 767px) {
+      flex-direction: column;
+      input {
+        margin-right: 0;
+      }
+    }
+  }
+  input,
+  select {
+    font-size: 18px;
+    background: $form-background;
+    color: $form-text-color;
+    border: none;
+    border-radius: 7px;
+    padding: 10px;
+    font-family: "Poppins", sans-serif;
+    @media screen and (max-width: 767px) {
+      margin-bottom: 5px;
+    }
+  }
+  button {
+    padding: 0 10px;
+    margin-left: 2px;
+    outline: none;
+    cursor: pointer;
+    border: none;
+    border-radius: 0 10px 10px 0;
+    font-weight: 700;
+    color: #fff;
+    background-color: $purple;
+    @media screen and (max-width: 767px) {
+      border-radius: 10px;
+    }
+  }
+}

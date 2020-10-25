@@ -12,6 +12,7 @@ const initialState = {
   login: null as string | null,
   isAuth: false,
   captchaUrl: null as string | null | undefined, //if null, then captcha is not required
+  /* photos: null as object | null, */
 };
 
 export type InitialStateType = typeof initialState;
@@ -41,7 +42,8 @@ export const actions = {
     userId: number | null,
     email: string | null,
     login: string | null,
-    isAuth: boolean
+    isAuth: boolean,
+    
   ) => {
     return {
       type: 'AUTH_USER',

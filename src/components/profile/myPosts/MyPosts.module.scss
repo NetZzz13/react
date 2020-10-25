@@ -4,7 +4,7 @@
   padding: 10px;
   border-radius: 20px;
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
-  width: 600px;
+  max-width: 600px;
   .postsTitle {
     font-weight: 700;
     font-size: 20px;
@@ -43,5 +43,6 @@
   font-size: 18px;
   &:hover {
     background-color: #bc79ff;
+    cursor: pointer;
   }
 }

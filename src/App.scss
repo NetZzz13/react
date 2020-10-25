@@ -16,6 +16,28 @@
   background: linear-gradient(to bottom right, #fffcf8, #f3e7ff);
 }
 
+.ant-layout-header {
+  padding: 0 20px;
+}
 .ant-layout-footer {
   background: none;
+}
+
+.loginWrapper {
+  width: 100vw;
+  height: 100vh;
+}
+
+.ant-layout-content {
+  display: flex;
+  flex-direction: column;
+}
+
+.ant-pagination-item-active,
+.ant-pagination-item-active:focus,
+.ant-pagination-item:hover {
+  border-color: $purple;
+  a {
+    color: $purple;
+  }
 }

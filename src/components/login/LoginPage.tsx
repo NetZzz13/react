@@ -63,7 +63,7 @@ export const LoginForm: React.FC<
 > = (props) => {
   return (
     <form onSubmit={props.handleSubmit} className={s.loginForm}>
-      <div className={s.login}>Login</div>
+      <div className={s.login}>Welcome to SOCIUM.</div>
       <div className={s.inputField}>
         <Field
           placeholder="Your email"

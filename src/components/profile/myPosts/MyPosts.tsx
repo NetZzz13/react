@@ -4,6 +4,7 @@ import Post from "./post/Post";
 import { Field, reduxForm, reset, InjectedFormProps } from "redux-form";
 import { Textarea } from "../../common/FormsControls";
 import { PostType, ProfileType } from "../../../types/types";
+import {required } from "../../../utils/validators/validator";
 
 export type MapStatePropsType = {
   postsData: Array<PostType>;
@@ -27,7 +28,9 @@ type AddPostFormValuesType = {
 
 type AddPostFormOwnProps = {};
 
-const MyPosts: React.FC<MapStatePropsType & MapDispatchPropsType & MapOwnPropsType> = (props) => {
+const MyPosts: React.FC<
+  MapStatePropsType & MapDispatchPropsType & MapOwnPropsType
+> = (props) => {
   let postElements = props.postsData.map((p) => (
     <Post
       id={p.id}
@@ -74,6 +77,7 @@ export const AddNewPostForm: React.FC<
           name={"post"}
           placeholder={"Enter post message"}
           className={s.textareaEditForm}
+          validate={[required ]}
         />
       </div>
       <div>
