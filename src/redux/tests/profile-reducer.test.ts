@@ -1,4 +1,4 @@
-import profileReducer, { actions } from "./profile-reducer";
+import profileReducer, { actions } from "../profile-reducer";
 import React from "react";
 
 let state = {

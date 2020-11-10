@@ -1,5 +1,5 @@
 import { createSelector } from "reselect";
-import { AppStateType } from "./redux-store";
+import { AppStateType } from "../redux-store";
 
 //селектор - функция, которая принимает весь state и достаёт из него часть.
 export const getUsers = (state: AppStateType) => {

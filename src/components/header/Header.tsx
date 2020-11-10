@@ -4,14 +4,13 @@ import { NavLink } from "react-router-dom";
 import { Layout } from "antd";
 import Avatar from "antd/lib/avatar/avatar";
 import { useDispatch, useSelector } from "react-redux";
-import { getIsAuth, getLogin } from "../../redux/auth-selectors";
+import { getIsAuth, getLogin } from "../../redux/selectors/auth-selectors";
 import { logoutThunkCreator } from "../../redux/auth-reducer";
 import {
   UserOutlined,
   LogoutOutlined,
   ExpandOutlined,
 } from "@ant-design/icons";
-import { getAvatar } from "../../redux/profile-selectors";
 
 export type MapStatePropsType = {};
 
@@ -20,8 +19,6 @@ const Header: React.FC<MapStatePropsType> = (props) => {
 
   const isAuth = useSelector(getIsAuth);
   const login = useSelector(getLogin);
-  const avatar = useSelector(getAvatar);
-
   const dispatch = useDispatch();
 
   const logout = () => {

@@ -2,7 +2,7 @@ import React from "react";
 import s from "./User.module.scss";
 import userPhoto from "../../assets/images/profile.png";
 import { NavLink } from "react-router-dom";
-import { UserType, PhotosType } from "../../types/types";
+import { UserType} from "../../types/types";
 
 type MapPropsType = {
   user: UserType;

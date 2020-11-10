@@ -1,6 +1,5 @@
 import React, { useEffect } from "react";
 import s from "./Users.module.scss";
-import Paginator from "../common/Paginator/Paginator";
 import User from "./User";
 import UsersSearchForm from "./UsersSearchForm";
 import {
@@ -17,7 +16,7 @@ import {
   getUsersFilter,
   getUsers,
   getFollowingProgress,
-} from "../../redux/user-selectors";
+} from "../../redux/selectors/user-selectors";
 import { actions } from "../../redux/sideBar-reducer";
 import { useHistory } from "react-router-dom";
 import * as queryString from "querystring";

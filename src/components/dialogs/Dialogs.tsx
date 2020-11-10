@@ -10,7 +10,6 @@ import {
   minLengthCreator,
 } from "../../utils/validators/validator";
 import { InitialStateType } from "../../redux/dialogs-reducer";
-import { Button } from "antd";
 
 type OwnPropsType = {
   dialogsPage: InitialStateType;
@@ -20,7 +19,6 @@ type OwnPropsType = {
 export type NewMessageFormValuesType = {
   message: string;
 };
-
 
 const Dialogs: React.FC<OwnPropsType> = (props) => {
   let dialogElements = props.dialogsPage.dialogsData.map((d) => (
@@ -48,13 +46,10 @@ const Dialogs: React.FC<OwnPropsType> = (props) => {
 const maxLength50 = maxLengthCreator(50);
 const minLength1 = minLengthCreator(1);
 
-
-
-
-type PropsType = {}
+type PropsType = {};
 
 export const AddMessageForm: React.FC<
-InjectedFormProps<NewMessageFormValuesType, PropsType> & PropsType
+  InjectedFormProps<NewMessageFormValuesType, PropsType> & PropsType
 > = (props) => {
   return (
     <form onSubmit={props.handleSubmit}>

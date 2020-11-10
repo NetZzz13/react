@@ -1,10 +1,10 @@
-import { APIResponseType, ResultCodesEnum } from "./../api/api";
+import { APIResponseType, ResultCodesEnum } from "../../api/api";
 import {
   followThunkCreator,
   unfollowThunkCreator,
   actions,
-} from "./users-reducer";
-import { usersAPI } from "../api/users-api";
+} from "../users-reducer";
+import { usersAPI } from "../../api/users-api";
 
 //thunk - совокупность dispatch-ей + async + dispatch-и
 //test of thunk - тест ТОЛЬКО dispatch-ей, а не async

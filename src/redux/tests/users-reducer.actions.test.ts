@@ -1,6 +1,6 @@
-import { initialStateType } from "./users-reducer";
-import usersReducer from "./users-reducer";
-import { actions } from "./users-reducer";
+import { initialStateType } from "../users-reducer";
+import usersReducer from "../users-reducer";
+import { actions } from "../users-reducer";
 
 //initial state
 const state: initialStateType = {
@@ -39,6 +39,10 @@ const state: initialStateType = {
   currentPage: 1,
   isFetching: false,
   followingProgress: [], // array of users id
+  filter: {
+    term: "",
+    friend: null as null | boolean,
+  }
 };
 
 test("follow success", () => {

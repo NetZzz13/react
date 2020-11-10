@@ -9,7 +9,6 @@ import MyPostsContainer from "../myPosts/MyPostsContainer";
 import { ProfileType, ContacsType } from "../../../types/types";
 import { Button } from "antd";
 
-
 type MapStatePropsType = {
   profile: ProfileType | null;
   isOwner: boolean;
@@ -123,7 +122,12 @@ type ContactsPropsType = {
 export const Contact: React.FC<ContactsPropsType> = (props) => {
   return (
     <div className={s.contact}>
-      <a href={props.contactValue} className={s.contactLink} target="_blank">
+      <a
+        href={props.contactValue}
+        className={s.contactLink}
+        target="_blank"
+        rel="noopener noreferrer"
+      >
         <img
           className={s.iconSocial}
           src={`/socialIcons/${props.contactTitle}.svg`}
