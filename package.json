@@ -14,7 +14,7 @@
     "@types/react-router-dom": "^5.1.5",
     "@types/redux-form": "^8.2.7",
     "antd": "^4.7.2",
-    "axios": "^0.19.2",
+    "axios": "^0.21.1",
     "bootstrap": "^4.5.0",
     "firebase-tools": "^8.6.0",
     "formik": "^2.1.5",
